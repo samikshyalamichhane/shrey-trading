@@ -92,27 +92,26 @@
 </div>
 @if(auth()->guard('client')->user())
 <div class="page-content fade-in-up">
-    <div class="ibox col-sm-12">
-        <div class="row">
-            <div class="ibox-head col-sm-6">
+    <div class="col-sm-12">
+        <div class="row newcartlist">
+            <div class="col-sm-6">
+                <div class="samebg">
                 <div class="ibox-title">
                     <x-product></x-product>
                 </div>
-            </div>
-            <div class="ibox-head col-sm-6">
-                <div class="ibox-title">Cart Items</div>
-            </div>
+            
+           
             <div class="tab-content" id="component-1-content">
 
-                <div class="tab-pane fade " id="component-1-1" role="tabpanel" aria-labelledby="component-1-1">
-                    <div class="ibox-body col-sm-12">
+                <div class="tab-pane fade show active" id="component-1-1" role="tabpanel" aria-labelledby="component-1-1">
+                    <div class="ibox-body">
                         <table id="example-table" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
                                     <th>S.N.</th>
                                     <th>Products</th>
                                     <th>Code </th>
-                                    <!-- <th><button>Add To Cart</button> </th> -->
+                                    
 
                                 </tr>
                             </thead>
@@ -150,15 +149,15 @@
                         </table>
                     </div>
                 </div>
-                <div class="tab-pane fade show active" id="component-1-2" role="tabpanel" aria-labelledby="component-1-2">
-                    <div class="ibox-body col-sm-12">
+                <div class="tab-pane fade" id="component-1-2" role="tabpanel" aria-labelledby="component-1-2">
+                    <div class="ibox-body">
                         <table id="example-table" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
                                     <th>S.N.</th>
                                     <th>Products</th>
                                     <th>Code </th>
-                                    <!-- <th><button>Add To Cart</button> </th> -->
+                                    
 
                                 </tr>
                             </thead>
@@ -197,8 +196,11 @@
                     </div>
                 </div>
             </div>
-
-            <div class="ibox-body col-sm-6">
+        </div></div>
+         
+            <div class="col-sm-6">
+                <div class="samebg">
+                 <div class="ibox-title">Cart Items</div>
                 <form action="{{route('submitOrder')}}" method="POST">
                     @csrf
                     <table id="example-table" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
@@ -229,8 +231,8 @@
                                                     <button class="plus">+</button>
                                                 </div>
                                             </div>
-                                            <!-- <button class="btn category__card__body__cart-btn add_cart_btn list_cart_btn" data-product_id="{{$details['id']}}" data-quantity="1" data-type="plus" onclick="addToCart(this)"><span><i class="fa fa-cart-plus" aria-hidden="true"></i></span>add to cart</button> -->
-                                            <button class="btn category__card__body__cart-btn add_cart_btn list_cart_btn" data-pro_id="{{$details['id']}}" data-quantity="1" data-type="plus" onclick="deleteCart(this)"><i class="fa fa-trash"></i></button>
+                                             <!--<button class="btn category__card__body__cart-btn add_cart_btn list_cart_btn" data-product_id="{{$details['id']}}" data-quantity="1" data-type="plus" onclick="addToCart(this)"><span><i class="fa fa-cart-plus" aria-hidden="true"></i></span>add to cart</button> -->
+                                            <button class="btn category__card__body__cart-btn add_cart_btn list_cart_btn del" data-pro_id="{{$details['id']}}" data-quantity="1" data-type="plus" onclick="deleteCart(this)"><i class="fa fa-trash"></i></button>
                                         </div>
                                     </div>
                                 </td>
@@ -243,14 +245,14 @@
                         </tbody>
 
                     </table>
-                    <div class="col-lg-12 col-sm-12 form-group">
-                        <label><strong>order Note</strong></label>
-                        <textarea name="order_note" id="order_note" rows="5" placeholder="order Note Here" class="form-control" style="resize: none;"></textarea>
+                    <div class="form-group">
+                        <label><strong>Order Note</strong></label>
+                        <textarea name="order_note" id="order_note" rows="5" placeholder="Order Note Here" class="form-control" style="resize: none;"></textarea>
                     </div>
                     <button class="btn btn-sm btn-success submitOrder" type="success">Submit Order</button>
                 </form>
 
-            </div>
+            </div></div>
         </div>
     </div>
 </div>

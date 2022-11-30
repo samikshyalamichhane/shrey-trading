@@ -62,7 +62,7 @@
             @endif
             <li>
                 <a href="javascript:;">
-                    <i class="sidebar-item-icon fa fa-plane"></i>
+                    <i class="sidebar-item-icon fa fa-shopping-cart" aria-hidden="true"></i>
                     <span class="nav-label">Products</span>
                     <i class="fa fa-angle-left arrow"></i>
                 </a>
@@ -89,7 +89,8 @@
 
             <li>
                 <a href="javascript:;">
-                    <i class="sidebar-item-icon fa fa-plane"></i>
+                    
+                    <i class="sidebar-item-icon fa fa-shopping-bag" aria-hidden="true"></i>
                     <span class="nav-label">Orders</span>
                     <i class="fa fa-angle-left arrow"></i>
                 </a>
