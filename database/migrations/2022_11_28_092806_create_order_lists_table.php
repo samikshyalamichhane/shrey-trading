@@ -18,7 +18,7 @@ class CreateOrderListsTable extends Migration
             $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('product_id');
             $table->integer('quantity')->nullable();
-            $table->double('amount', 15,8);
+            $table->double('amount', 15,8)->nullable();
             $table->string('phone')->nullable();
             $table->string('order_id')->nullable();
             $table->text('track_no')->nullable();

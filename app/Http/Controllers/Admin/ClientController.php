@@ -30,7 +30,7 @@ class ClientController extends Controller
             'name' => 'required|string|min:6|max:20',
             'email' => 'required|email|min:6|max:50|unique:users',
             'password' => 'required|min:6|max:20|confirmed',
-            'address' => 'required',
+            'address' => 'nullable',
         ]);
         try {
             $user = new Client();

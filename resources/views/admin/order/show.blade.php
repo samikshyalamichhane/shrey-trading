@@ -58,7 +58,7 @@
                                                 <td colspan="3">
                                                 <b> Total=</b>
                                                 </td>
-                                                <td>10</td>
+                                                <td>{{$order->quantity}}</td>
                                             </tr>
                                             <tr>
                                                 <td>

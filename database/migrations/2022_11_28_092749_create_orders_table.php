@@ -19,7 +19,7 @@ class CreateOrdersTable extends Migration
             // $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('client_id')->nullable();
             $table->integer('quantity')->nullable();
-            $table->double('amount', 15,8);
+            $table->double('amount', 15,8)->nullable();
             $table->text('order_note')->nullable();
             $table->enum('status', ['new', 'verified', 'cancel', 'process', 'delivered'] )->default('new');
             $table->float('delivery_charge')->nullable();

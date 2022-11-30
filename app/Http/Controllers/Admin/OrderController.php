@@ -13,7 +13,7 @@ class OrderController extends Controller
 {
     public function index(){
         if(auth()->user()){
-            $orders = Order::get();
+            $orders = Order::latest()->get();
         } else {
             $orders = auth()->guard('client')->user()->orders;
         }
@@ -26,38 +26,26 @@ class OrderController extends Controller
     }
 
     public function submitOrder(Request $request){
-        // dd($request->all(),session()->get('__cart'));
         if (session('__cart')) {
             DB::beginTransaction();
             $cart_id  = \Str::random(10);
-            
-                // $cart_data = [];
-            
             $quantity=0;
             $amount=0;
             foreach(session('__cart') as $cart){
-                $quantity+=$cart['quantity'];
-                // $amount+=$cart['amount'];
+                $quantity +=$cart['quantity'];
+                $amount +=$cart['price'] * $cart['quantity'];
             }
-
             //saveing order
             $track_no=\Str::random(10);
             $order_data =[
-                
                 'client_id'   =>auth()->guard('client')->user()->id,
-                
                 'quantity'=> $quantity,
-                // 'amount'=>$amount,
+                'amount'=>$amount,
                 'order_note' => $request->message,
                 'track_no'=>$track_no,
                 'status' => 'New',
             ];
-            // dd($order_data);
-            
-
             $order = new Order();
-            
-            // $order->create($order_data);
             $order_id=$order->create($order_data);
             
             foreach (session('__cart') as $key => $cart_items) {
@@ -67,15 +55,13 @@ class OrderController extends Controller
                     'client_id'   =>auth()->guard('client')->user()->id,
                     'track_no'  =>$track_no,
                     'quantity'=> $cart_items['quantity'],
-                    // 'amount'=>$cart_items['amount'],
+                    'amount'=>$cart_items['price'],
                     'product_id'=>$cart_items['id'],
                 ];
                 $order_list = new OrderList();
-                
                 $order_list->fill($order_list_data);
                 $order_list->save();
                 DB::commit();
-                 
             }
             request()->session()->forget('__cart');
             $order_data['order_id']=$order_id->id;
@@ -83,5 +69,18 @@ class OrderController extends Controller
             $order_data['amount']=$order_id->amount;
             return back()->with('success', 'Order has been placed successfully.');
         }
+    }
+
+    public function updateStatus(Request $request){
+        $order = Order::where('id',$request->order_id)->first();
+        $order->update(['status'=>$request->status]);
+        return back()->with('success', 'Orderstatus has been changed successfully.');
+
+    }
+
+    public function delete($id,Request $request){
+        $order = Order::where('id',$id)->first();
+        $order->delete();
+        return back()->with('success', 'Order has been deleted successfully.');
     }
 }

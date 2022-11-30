@@ -29,7 +29,7 @@
                         <th>Customer Name</th>
                         <th>Date</th>
                         <th>Status</th>
-                        <th>Action</th>
+                        <th>Order Detail/ Change Status/ Delete</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -43,15 +43,26 @@
                         <td> #{{$order_data->id}}</td>
                         <td>{{@$order_data->client->name}}</td>
                         <td>{{Carbon\Carbon::parse($order_data->created_at)->format('Y,M d')}}</td>
-                        <td>{!! $order_data->status?'<span
-                                        class="badge badge-pill badge-success">New</span>':'<span
-                                        class="badge badge-pill badge-warning">Inactive</span>' !!}
+                        <td><span class="badge badge-pill badge-warning">{{$order_data->status}}</span>
                             </td>
                         <td>
                             <ul class="action_list">
                                 <li>
-                                    <a href="{{route('orders.show',$order_data->id)}}" data- class="btn btn-info btn-md"><i class="fa fa-eye"></i></a>
+                                    <a href="{{route('orders.show',$order_data->id)}}" data- class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a>
                                     
+                                </li>
+                                <li>
+                                    <button class="btn btn-success btn-sm changeOrderStatus" data-id="{{$order_data->id}}" data-title="{{$order_data->title}}"><i class="fa fa-pencil"></i></button>
+                                </li>
+                                <li>
+                                    <form action="{{ route('orders.destroy', $order_data->id) }}" method="post">
+                                    @csrf()
+                                    @method('DELETE')
+                                    <button onclick="return confirm('Are you sure you want to delete this Order?')"
+                                        class="btn btn-danger btn-sm">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                    </form>
                                 </li>
                             </ul>
                         </td>
@@ -71,7 +82,7 @@
     </div>
      
 </div>
-
+@include('admin.order.modal')
 @endsection
 @section('scripts')
 <script src="{{asset('/assets/admin/vendors/DataTables/datatables.min.js')}}" type="text/javascript"></script>
@@ -110,4 +121,15 @@ function DataSuccessInDatabase(message){
     });
 }
 </script>
+<script>
+    $(document).ready(function(){
+        $('.changeOrderStatus').click(function(e){
+                e.preventDefault();
+                id=$(this).data('id');
+                $('#myModal').modal('show');
+                $("#myModal #title").val( id );
+            });
+        
+    });
+    </script>
 @endsection

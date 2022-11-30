@@ -38,6 +38,8 @@ Route::group(['prefix'=> 'carts'], function(){
 });
 Route::get('/orders/', [OrderController::class,'index'])->name('orders.index');
 Route::get('/view-order/{id}', [OrderController::class,'show'])->name('orders.show');
+Route::delete('/orders/{id}', [OrderController::class,'delete'])->name('orders.destroy');
+Route::post('/orders/', [OrderController::class,'updateStatus'])->name('updateStatus');
 
 
 
