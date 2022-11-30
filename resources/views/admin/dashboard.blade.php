@@ -90,6 +90,7 @@
 
 
 </div>
+@if(auth()->guard('client')->user())
 <div class="page-content fade-in-up">
     <div class="ibox col-sm-12">
         <div class="row">
@@ -102,7 +103,8 @@
                 <div class="ibox-title">Cart Items</div>
             </div>
             <div class="tab-content" id="component-1-content">
-                <div class="tab-pane fade show active" id="component-1-1" role="tabpanel" aria-labelledby="component-1-1">
+
+                <div class="tab-pane fade " id="component-1-1" role="tabpanel" aria-labelledby="component-1-1">
                     <div class="ibox-body col-sm-12">
                         <table id="example-table" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
                             <thead>
@@ -148,7 +150,7 @@
                         </table>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="component-1-2" role="tabpanel" aria-labelledby="component-1-2">
+                <div class="tab-pane fade show active" id="component-1-2" role="tabpanel" aria-labelledby="component-1-2">
                     <div class="ibox-body col-sm-12">
                         <table id="example-table" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
                             <thead>
@@ -252,6 +254,60 @@
         </div>
     </div>
 </div>
+@endif
+@if(auth()->user())
+<div class="page-content fade-in-up">
+    <div class="ibox col-sm-12">
+        <div class="row">
+            <div class="ibox-head col-sm-6">
+                <div class="ibox-title">
+                    New Orders
+                </div>
+            </div>
+            <div class="ibox-body col-sm-12">
+                <table id="example-table" class="table table-responsive table-hover" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>S.N.</th>
+                            <th>Ordered By</th>
+                            <th>Date </th>
+                            <th>Action</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @forelse($orders as $cart_key => $order_data)
+                        <tr>
+                            <td>#{{$order_data->id}}</td>
+                            <td>{{@$order_data->client->name}}</td>
+                            <td>{{Carbon\Carbon::parse($order_data->created_at)->format('Y,M d')}}</td>
+                            <td>
+                            <ul class="action_list">
+                                <li>
+                                    <a href="{{route('orders.show',$order_data->id)}}" data- class="btn btn-info btn-md"><i class="fa fa-eye"></i></a>
+                                    
+                                </li>
+                            </ul>
+                        </td>
+                        </tr>
+                        @empty
+                        <tr>
+                            <td colspan="8">
+                                You do not have any data yet.
+                            </td>
+                        </tr>
+                        @endforelse
+
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+@endif
+
 @endsection
 @section('scripts')
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>

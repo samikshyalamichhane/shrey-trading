@@ -53,19 +53,6 @@
                                     <a href="{{route('orders.show',$order_data->id)}}" data- class="btn btn-info btn-md"><i class="fa fa-eye"></i></a>
                                     
                                 </li>
-                                {{--
-                                <li>
-
-                                    <form action="{{ route('category.destroy', $order_data->id) }}" method="post">
-                                        @csrf()
-                                        @method('DELETE')
-                                        <button onclick="return confirm('Are you sure you want to delete this Category?')" class="btn btn-danger">
-                                            <i class="fa fa-trash"></i>
-                                        </button>
-                                    </form>
-                                </li>
-                                --}}
-                              
                             </ul>
                         </td>
                     </tr>

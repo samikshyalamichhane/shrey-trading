@@ -44,7 +44,7 @@ class AdminLoginController extends Controller
         } else {
             $myProducts = [];
         }
-        $orders = Order::get();
+        $orders = Order::orderBy('created_at', 'desc')->get();
         return view('admin.dashboard',compact('products','myProducts','orders'));
     }
 
