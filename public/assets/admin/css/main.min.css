@@ -5257,3 +5257,51 @@ table.dataTable {
 .remove_image .fa.fa-times{
     background: red;
 }
+
+/*New Css Added*/
+.newcartlist .cart_list .qty-input{
+    background:none;
+    border:none;
+    width:5%;
+}
+.newcartlist .minus,.newcartlist .plus{
+    background: #666;
+border-radius: 100%;
+width: 27px;
+height: 27px;
+color: #fff;
+border:none;
+line-height:25px;
+font-size:18px;
+}
+.newcartlist .samebg{
+    background:#fff;
+    padding:15px;
+}
+
+.newcartlist .nav-tabs .nav-link.active,.newcartlist .nav-tabs .nav-link:focus{
+    font-weight:500;
+    font-size:20px;
+    color:#000;
+    border: none;
+    border-bottom: 1px solid #000;
+}
+.newcartlist button.btn.category__card__body__cart-btn.add_cart_btn.list_cart_btn{
+        background: #666666;
+    color: #fff;
+    margin-left: 10px;
+}
+.newcartlist button.btn.category__card__body__cart-btn.add_cart_btn.list_cart_btn i.fa{
+    padding-right:5px;
+}
+.newcartlist button.btn.category__card__body__cart-btn.add_cart_btn.list_cart_btn.del{
+    position: relative;
+    right: -81px;
+    top: -29px;
+}
+
+
+
+
+
+
