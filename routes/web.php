@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminLoginController;
 use App\Http\Controllers\Admin\ClientController;
+use App\Http\Controllers\Admin\ExportController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\UserController;
@@ -40,6 +41,8 @@ Route::get('/orders/', [OrderController::class,'index'])->name('orders.index');
 Route::get('/view-order/{id}', [OrderController::class,'show'])->name('orders.show');
 Route::delete('/orders/{id}', [OrderController::class,'delete'])->name('orders.destroy');
 Route::post('/orders/', [OrderController::class,'updateStatus'])->name('updateStatus');
+Route::post('print-order',[OrderController::class,'printOrder'])->name('printOrder');
+Route::get('export/{id}', [ExportController::class, 'export'])->name('export');
 
 
 

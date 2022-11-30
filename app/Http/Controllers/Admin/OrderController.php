@@ -83,4 +83,12 @@ class OrderController extends Controller
         $order->delete();
         return back()->with('success', 'Order has been deleted successfully.');
     }
+
+    public function printOrder(Request $request){
+        // dd($request->all());
+        $data=Order::with('order_list','client')->where('id',$request->value)->first();
+        $description=$data->order_list;
+		$user = $data->client;
+        return view('admin.order.preview',compact('data','description','user'));
+    }
 }

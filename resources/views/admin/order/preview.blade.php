@@ -3,7 +3,7 @@
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<title>Cost Estimation</title>
+<title>Order Details</title>
 </head>
 
 <body>
@@ -35,8 +35,9 @@
                 <tr>
                      <th style="width: 100px; padding: 5px;">SN</th> 
                     <th style="width: 360px; padding: 5px;">Product Title</th>
+                    <th style="width: 360px; padding: 5px;">Product Code</th>
                     <th style="padding: 5px;">Quantity</th>
-                    <th style="padding: 5px;">Unit Price</th>
+                    <!-- <th style="padding: 5px;">Unit Price</th> -->
                     <th style="padding: 5px;">Total amount</th>
                 </tr>
             </thead>
@@ -45,9 +46,10 @@
                 @foreach($description as $key=>$desc)
                 <tr>
                      <td style="padding: 5px; text-align: center; font-weight: 600; border-bottom: 0; border-top: 0;">{{$loop->iteration}}</td> 
-                    <td style="padding: 5px;border-bottom: 0; border-top: 0;">{{$desc->product_info->title}}</td>
+                    <td style="padding: 5px;border-bottom: 0; border-top: 0;">{{$desc->product_info->name}}</td>
+                    <td style="padding: 5px;border-bottom: 0; border-top: 0;">{{$desc->product_info->code}}</td>
                     <td style="padding: 5px; text-align: right;border-bottom: 0;border-top: 0;">{{$desc->quantity}}/-</td>
-                    <td style="padding: 5px; text-align: right;border-bottom: 0;border-top: 0;">{{number_format(@$desc->product_info->price, 2)}}/-</td>
+                    <!-- <td style="padding: 5px; text-align: right;border-bottom: 0;border-top: 0;">{{number_format(@$desc->product_info->price, 2)}}/-</td> -->
                     <td style="padding: 5px; text-align: right;border-bottom: 0;border-top: 0;">{{number_format(@$desc->amount, 2)}}/-</td>
                     
                     
@@ -59,7 +61,7 @@
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td style="padding: 5px; text-align: right;border-bottom: 0;border-top: 0;"><strong>{{number_format(@$new_amount, 2)}}/-</strong></td>
+                        <td style="padding: 5px; text-align: right;border-bottom: 0;border-top: 0;"><strong>{{number_format(@$data->amount, 2)}}/-</strong></td>
                     </tr>
             </tbody>   
         </table>
