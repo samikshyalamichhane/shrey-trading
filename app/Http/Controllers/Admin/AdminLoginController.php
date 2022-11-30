@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AdminLoginRequest;
+use App\Models\Client;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\User;
@@ -45,7 +46,9 @@ class AdminLoginController extends Controller
             $myProducts = [];
         }
         $orders = Order::orderBy('created_at', 'desc')->get();
-        return view('admin.dashboard',compact('products','myProducts','orders'));
+        $users = User::get();
+        $clients = Client::get();
+        return view('admin.dashboard',compact('products','myProducts','orders','clients','users'));
     }
 
     public function logout(Request $request){

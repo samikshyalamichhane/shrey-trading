@@ -7,7 +7,7 @@
         <div class="col-md-4">
             <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
                 <div class="card-body">
-                    <h5 class="card-title">Total Users: </h5>
+                    <h5 class="card-title">Total Users: {{count($users)}}</h5>
                 </div>
                 <div class="card-footer bg-transparent">
                     <div class="stats">
@@ -22,7 +22,7 @@
         <div class="col-md-4">
             <div class="card text-white bg-danger mb-3" style="max-width: 18rem;">
                 <div class="card-body">
-                    <h5 class="card-title">Total Clients: </h5>
+                    <h5 class="card-title">Total Clients: {{count($clients)}}</h5>
                 </div>
                 <div class="card-footer bg-transparent">
                     <div class="stats">
