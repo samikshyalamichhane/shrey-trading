@@ -5298,6 +5298,17 @@ font-size:18px;
     position: relative;
     right: -81px;
     top: -29px;
+    background:none;
+    color:#666666;
+    padding:0;
+    font-size:18px;
+}
+.newcartlist .btn.btn-sm.btn-success.submitOrder{
+    background:#666666;
+    color:#fff;
+    font-size:14px;
+    font-weight:600;
+    border:1px solid #666666;
 }
 
 
