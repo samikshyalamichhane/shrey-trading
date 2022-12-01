@@ -28,7 +28,7 @@
                             <!-- <div class="ibox-tools"> -->
                             <a class="btn btn-info print" href="#" title="Edit" data-id="{{$order->id}}"><span class="fa fa-edit"></span>Print</a>
                            
-                            <a class="btn btn-warning" href="{{ route('export',$order->id) }}">Export Order Lists Data</a>
+                            <a class="btn btn-warning" href="{{ route('export_view',$order->id) }}">Export Order Lists Data</a>
                             <!-- <a class="btn btn-info print" href="#" title="Edit" data-id="{{$order->id}}"><span class="fa fa-edit"></span>Export</a> -->
                             <!-- </div> -->
                         </div>
