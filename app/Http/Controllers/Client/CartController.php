@@ -22,67 +22,108 @@ class CartController extends Controller
 	}
 
 	public function CartAdd(Request $request){
-    	// dd($request);
-        
-        if(is_numeric($request->quantity)){
-                    $this->product = $this->product->find($request->product_id);
-                    if (!$this->product) {
-                        return response()->json(['success' => false, 'data'=>null, 'message' =>'Product Not Found.']);
-                    }
-                    // $cart = []; first created this 
-                    $cart = $request->session()->get('__cart');
-                    // dd($cart);
-                    // $args = [ 'price'=> $this->product->price, 'discount'=>$this->product->discount];
-                    $current_item = [
-                        'id' => $this->product->id,
-                        'name' => $this->product->name,
-                        'price'=>$this->product->price,
-                        'code'=>$this->product->code,
-                    ];
+    	// dd($request->all());
+        $product = Product::findOrFail($request->product_id);
+          
+        $cart = session()->get('__cart', []);
+  
+        if(isset($cart[$request->product_id])) {
+            $cart[$request->product_id]['quantity']++;
+        } else {
+            $cart[$request->product_id] = [
+                "id" => $product->id,
+                "quantity" => $request->quantity,
+                "price" => $product->price,
+                "code" => $product->code
+            ];
+        }
+        // dd($cart);
+        session()->put('__cart', $cart);
+        // if(is_numeric($request->quantity)){
+        //             $this->product = $this->product->find($request->product_id);
+        //             if (!$this->product) {
+        //                 return response()->json(['success' => false, 'data'=>null, 'message' =>'Product Not Found.']);
+        //             }
+        //             // $cart = []; first created this 
+        //             $cart = $request->session()->get('__cart');
+        //             // dd($cart);
+        //             // $args = [ 'price'=> $this->product->price, 'discount'=>$this->product->discount];
+        //             $current_item = [
+        //                 'id' => $this->product->id,
+        //                 'name' => $this->product->name,
+        //                 'price'=>$this->product->price,
+        //                 'code'=>$this->product->code,
+        //             ];
 
-                    if (!empty($cart)) {
-                        $index = null;
-                        foreach ($cart as $key => $cart_items) {
-                            // dd($cart_items['id']);
-                            if ($cart_items['id'] == $request->product_id) {
-                                $index = $key;
-                                break;
-                            }
-                        }
-                        if ($index !== null) {
-                            // dd($request->quantity);
-                            // cart item exists item also exists
-                            $cart[$index]['quantity'] += (int)$request->quantity;
-                            $cart[$index]['amount'] = $request->price * $cart[$index]['quantity'];
-                        } else {
-                            // case cart exists  but item not exists
-                            $current_item['quantity']= (int)$request->quantity;
-                            $current_item['amount'] = $request->price * $request->quantity;
-                            $cart[] = $current_item;
-                        }
-                        // dd($cart);
-                    }else{
-                        // initial insert
-                        $current_item['quantity']= (int)$request->quantity;
-                        // $current_item['amount'] = $request->price * $request->quantity;
-                        $cart[] = $current_item;
-                    }
-                    Session::put('__cart', $cart);
-                    $total = 0; 
-                    foreach ($cart as $key => $value) {
-                        $total += $value['quantity'];
-                    }
-                    // dd($cart);
-                    $products = $this->product->get();
+        //             if (!empty($cart)) {
+        //                 $index = null;
+        //                 foreach ($cart as $key => $cart_items) {
+        //                     // dd($cart_items['id']);
+        //                     if ($cart_items['id'] == $request->product_id) {
+        //                         $index = $key;
+        //                         break;
+        //                     }
+        //                 }
+        //                 if ($index !== null) {
+        //                     // dd($request->quantity);
+        //                     // cart item exists item also exists
+        //                     $cart[$index]['quantity'] += (int)$request->quantity;
+        //                     $cart[$index]['amount'] = $request->price * $cart[$index]['quantity'];
+        //                 } else {
+        //                     // case cart exists  but item not exists
+        //                     $current_item['quantity']= (int)$request->quantity;
+        //                     $current_item['amount'] = $request->price * $request->quantity;
+        //                     $cart[] = $current_item;
+        //                 }
+        //                 // dd($cart);
+        //             // }
+        //             }else{
+        //                 // initial insert
+        //                 $current_item['quantity']= (int)$request->quantity;
+        //                 // $current_item['amount'] = $request->price * $request->quantity;
+        //                 $cart[] = $current_item;
+        //             }
+        //             Session::put('__cart', $cart);
+        //             $total = 0; 
+        //             foreach ($cart as $key => $value) {
+        //                 $total += $value['quantity'];
+        //             }
+        //             // dd($cart);
+        //             $products = $this->product->get();
                     return response()->json(['status' => true, 
                         'cart' => $cart,
-                        'message' => "Product added to the cart Successfully.", 'total' => $total
+                        'message' => "Product added to the cart Successfully."
                     ]);
-        }else{
-            return response()->json(['success' => false, 'data'=>null, 'message' =>'some thing went wrong.']);
-        }
+        // }else{
+            // return  response()->json(['success' => false, 'data'=>null, 'message' =>'some thing went wrong.']);
+        // }
     	
     }
+
+    public function CartDeduct(Request $request){
+    	// dd($request->all());
+        $product = Product::findOrFail($request->product_id);
+          
+        $cart = session()->get('__cart', []);
+  
+        if(isset($cart[$request->product_id])) {
+            $cart[$request->product_id]['quantity']--;
+        } else {
+            $cart[$request->product_id] = [
+                "id" => $product->id,
+                "quantity" => $request->quantity,
+                "price" => $product->price,
+                "code" => $product->code
+            ];
+        }
+        // dd($cart);
+        session()->put('__cart', $cart);
+        return response()->json(['status' => true, 
+            'cart' => $cart,
+            'message' => "Product added to the cart Successfully."
+        ]);
+    }
+
     public function DeleteCart( Request $request){
         if($request->product_id) {
             $cart = session()->get('__cart');

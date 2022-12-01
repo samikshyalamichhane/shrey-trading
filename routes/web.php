@@ -31,6 +31,7 @@ Route::group(['prefix' => 'client'], function () {
 
 Route::group(['prefix'=> 'carts'], function(){
     Route::post('/add', [CartController::class,'CartAdd'])->name('addNewCart');
+    Route::post('/subtract', [CartController::class,'CartDeduct'])->name('CartDeduct');
     Route::post('/udpate-cart/', [CartController::class,'updateToCart'])->name('updateToCart');
     Route::post('/delete-cart/', [CartController::class,'DeleteCart'])->name('delete-cart');
     Route::post('/submit-order/', [OrderController::class,'submitOrder'])->name('submitOrder');

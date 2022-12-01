@@ -19,6 +19,8 @@
 
                 <div class="tab-pane fade show active" id="component-1-1" role="tabpanel" aria-labelledby="component-1-1">
                     <div class="ibox-body">
+                    <form action="{{route('submitOrder')}}" method="POST">
+                    @csrf
                         <table id="example-table" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
@@ -40,10 +42,10 @@
                                         <div class="cart_list">
 
                                             <div class="qty-wrapper">
-                                                <button class="minus">-</button>
+                                                <button class="minus" data-product_id="{{$all_cart->id}}">-</button>
 
-                                                <input type="text" name="" class="qty-input" value="1">
-                                                <button class="plus">+</button>
+                                                <input type="text" name="quantity" class="qty-input" value="0">
+                                                <button class="plus" data-product_id="{{$all_cart->id}}">+</button>
                                                 <!--<button class="btn category__card__body__cart-btn add_cart_btn list_cart_btn" data-product_id="{{$all_cart->id}}" data-quantity="1" data-type="plus" onclick="addToCart(this)"><span><i class="fa fa-cart-plus" aria-hidden="true"></i></span>add to cart</button>-->
 
                                             </div>
@@ -59,8 +61,17 @@
                                 @endforelse
 
                             </tbody>
+                            
 
                         </table>
+                        <!-- <div class="col-md-4 mt-5">
+                <div class="form-group">
+                        <label><strong>Order Note</strong></label>
+                        <textarea name="order_note" id="order_note" rows="5" placeholder="Order Note Here" class="form-control" style="resize: none;"></textarea>
+                    </div>
+                    <button class="btn btn-sm btn-success submitOrder" type="success">Submit Order</button>
+            </div> -->
+                    </form>
                     </div>
                 </div>
                 <div class="tab-pane fade" id="component-1-2" role="tabpanel" aria-labelledby="component-1-2">
@@ -88,7 +99,7 @@
                                             <div class="qty-wrapper">
                                                 <button class="minus">-</button>
 
-                                                <input type="text" name="" class="qty-input" value="1">
+                                                <input type="text" name="" class="qty-input" value="0">
                                                 <button class="plus">+</button>
                                                 <!--<button class="btn category__card__body__cart-btn add_cart_btn list_cart_btn" data-product_id="{{$all_cart->id}}" data-quantity="1" data-type="plus" onclick="addToCart(this)"><span><i class="fa fa-cart-plus" aria-hidden="true"></i></span>add to cart</button>-->
 
@@ -111,13 +122,13 @@
                 </div>
             </div>
             </div>
-            <div class="col-md-4 mt-5">
+            <!-- <div class="col-md-4 mt-5">
                 <div class="form-group">
                         <label><strong>Order Note</strong></label>
                         <textarea name="order_note" id="order_note" rows="5" placeholder="Order Note Here" class="form-control" style="resize: none;"></textarea>
                     </div>
                     <button class="btn btn-sm btn-success submitOrder" type="success">Submit Order</button>
-            </div>
+            </div> -->
         </div>
         </div>
         
@@ -220,48 +231,48 @@
                 
                 <form action="{{route('submitOrder')}}" method="POST">
                     @csrf
-                    <!--<table id="example-table" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">-->
-                    <!--    <thead>-->
-                    <!--        <tr>-->
-                    <!--            <th>S.N.</th>-->
-                    <!--            <th>Products</th>-->
-                    <!--            <th>Quantity </th>-->
-                    <!--            <th></th>-->
-                    <!--        </tr>-->
-                    <!--    </thead>-->
-                    <!--    <tbody>-->
-                    <!--        @if(session('__cart'))-->
-                    <!--        @foreach(session('__cart') as $id => $details)-->
-                    <!--        <tr>-->
-                    <!--            <td>{{++$id}}</td>-->
-                    <!--            <td>{{@$details['name']}}</td>-->
-                    <!--            <td>{{$details['quantity']}}</td>-->
-                    <!--            <td>-->
-                    <!--                <div class="category__card__body__cart">-->
-                    <!--                    <div class="whole-cart-wrapp">-->
-                    <!--                        <div class="cart_list">-->
+                    <!-- <table id="example-table" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
+                       <thead>
+                           <tr>
+                               <th>S.N.</th>
+                               <th>Products</th>
+                               <th>Quantity </th>
+                               <th></th>    
+                           </tr>
+                       </thead>
+                       <tbody>
+                           @if(session('__cart'))
+                           @foreach(session('__cart') as $id => $details)
+                           <tr>
+                               <td>{{++$id}}</td>
+                               <td>{{@$details['name']}}</td>
+                               <td>{{$details['quantity']}}</td>
+                               <td>
+                                   <div class="category__card__body__cart">
+                                       <div class="whole-cart-wrapp">
+                                           <div class="cart_list">
 
-                    <!--                            <div class="qty-wrapper">-->
-                    <!--                                <button class="minus">-</button>-->
+                                               <div class="qty-wrapper">
+                                                   <button class="minus">-</button>
 
-                    <!--                                <input type="text" name="" class="qty-input" value="1">-->
-                    <!--                                <button class="plus">+</button>-->
-                    <!--                            </div>-->
-                    <!--                        </div>-->
-                                             <!--<button class="btn category__card__body__cart-btn add_cart_btn list_cart_btn" data-product_id="{{$details['id']}}" data-quantity="1" data-type="plus" onclick="addToCart(this)"><span><i class="fa fa-cart-plus" aria-hidden="true"></i></span>add to cart</button> -->
-                    <!--                        <button class="btn category__card__body__cart-btn add_cart_btn list_cart_btn del" data-pro_id="{{$details['id']}}" data-quantity="1" data-type="plus" onclick="deleteCart(this)"><i class="fa fa-trash"></i></button>-->
-                    <!--                    </div>-->
-                    <!--                </div>-->
-                    <!--            </td>-->
-                    <!--        </tr>-->
+                                                   <input type="text" name="" class="qty-input" value="1">
+                                                   <button class="plus">+</button>
+                                               </div>
+                                           </div>
+                                             <button class="btn category__card__body__cart-btn add_cart_btn list_cart_btn" data-product_id="{{$details['id']}}" data-quantity="1" data-type="plus" onclick="addToCart(this)"><span><i class="fa fa-cart-plus" aria-hidden="true"></i></span>add to cart</button>
+                                           <button class="btn category__card__body__cart-btn add_cart_btn list_cart_btn del" data-pro_id="{{$details['id']}}" data-quantity="1" data-type="plus" onclick="deleteCart(this)"><i class="fa fa-trash"></i></button>
+                                       </div>
+                                   </div>
+                               </td>
+                           </tr>
 
-                    <!--        @endforeach-->
-                    <!--        @endif-->
+                           @endforeach
+                           @endif
 
 
-                    <!--    </tbody>-->
+                       </tbody>
 
-                    <!--</table>-->
+                    </table> -->
                     
                 </form>
 
@@ -327,118 +338,118 @@
 @section('scripts')
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script type="text/javascript">
-    $(document).ready(function() {
-        $('.minus').click(function(e) {
-            e.preventDefault();
+    // $(document).ready(function() {
+    //     $('.minus').click(function(e) {
+    //         e.preventDefault();
 
-            value = parseInt($(this).next('.qty-input').val(), 10);
+    //         value = parseInt($(this).next('.qty-input').val(), 10);
 
-            value = isNaN(value) ? 1 : value;
+    //         value = isNaN(value) ? 0 : value;
 
-            if (value == 1) {
-                return;
-            } else {
-                value--;
-            }
+    //         if (value == 0) {
+    //             return;
+    //         } else {
+    //             value--;
+    //         }
 
-            $(this).next('.qty-input').val(value);
-            $(this).next('.add_cart_btn').attr('data-quantity', value)
-        });
-        $('.plus').click(function(e) {
+    //         $(this).next('.qty-input').val(value);
+    //         $(this).next('.add_cart_btn').attr('data-quantity', value)
+    //         addToCart($(this),value);
+    //     });
+        // $('.plus').click(function(e) {
+        //     e.preventDefault();
+        //     plusValue = parseInt($(this).prev('.qty-input').val());
+        //     value = isNaN(plusValue) ? 0 : plusValue;
+        //     value++;
+        //     $(this).prev('.qty-input').val(value);
+        //     $(this).prev('.qty-input').append(value);
+        //     $(this).next('.add_cart_btn').attr('data-quantity', value)
+        // });
+    // });
+</script>
+<script type="text/javascript">
+    $('.plus').click(function(e) {
             e.preventDefault();
             plusValue = parseInt($(this).prev('.qty-input').val());
             value = isNaN(plusValue) ? 0 : plusValue;
             value++;
             $(this).prev('.qty-input').val(value);
-            // console.log($(this).next('.add_cart_btn').attr('data-quantity', value))
+            $(this).prev('.qty-input').append(value);
             $(this).next('.add_cart_btn').attr('data-quantity', value)
-            // $(this).parent('div').parent('div').parent('div').find('.add_cart_btn').attr('data-quantity', value);
-            // console.log($(this).parent('div').find('.add_cart_btn').attr('data-quantity'));
-        });
-    });
-</script>
-<script type="text/javascript">
-    function addToCart(elem, id = null) {
-        var product_id = $(elem).attr('data-product_id');
-        var quantity = parseInt($(elem).attr('data-quantity'));
-        console.log(product_id, quantity)
-        if (id != null) {
-            quantity = $('#' + id).val();
+            // console.log($(this).prev('.qty-input').val(value),value)
+            addToCart($(this),value);
+        
+        function addToCart(elem, value) {
+            var product_id = $(elem).attr('data-product_id');
+            var quantity = value;
+            console.log(product_id, quantity)
+            // if (id != null) {
+            //     quantity = $('#' + id).val();
+            // }
+            $.ajax({
+                url: "{{route('addNewCart')}}",
+                method: "post",
+                data: {
+                    product_id: product_id,
+                    quantity: quantity,
+                    _token: "{{csrf_token()}}"
+                },
+                success: function(response) {
+                    if (response.status = true) {
+                        // location.reload();
+                        DataSuccessInDatabase(response.message);
+                    }
+                    if (response.status == false) {
+                        FailedResponseFromDatabase(response.message);
+                    }
+                }
+            });
         }
-        $.ajax({
-            url: "{{route('addNewCart')}}",
-            method: "post",
-            data: {
-                product_id: product_id,
-                quantity: quantity,
-                _token: "{{csrf_token()}}"
-            },
-            success: function(response) {
-                if (response.status = true) {
-                    location.reload();
-                    DataSuccessInDatabase(response.message);
-                }
-                if (response.status == false) {
-                    FailedResponseFromDatabase(response.message);
-                }
-            }
-        });
-    }
+    });
+    $('.minus').click(function(e) {
+        e.preventDefault();
 
-    function deleteCart(elem, id = null) {
-        var product_id = $(elem).attr('data-pro_id');
-        console.log(product_id)
-        // var url = '{{ route("delete-cart", ":id") }}';
-        //     url = url.replace(':id', product_id);
-        // if (id != null) {
-        //     quantity = $('#' + id).val();
-        // }
-        $.ajax({
-            url: "{{route('delete-cart')}}",
-            method: "post",
-            data: {
-                product_id: product_id,
-                _token: "{{csrf_token()}}"
-            },
-            success: function(response) {
-                if (response.status = true) {
-                    location.reload();
-                    $('#new_cart__dropdown__list').html(response.html);
-                    $('.total_count').html(response.total);
-                    $('.top_menu').html(response.cart_top_menu_total);
-                    DataSuccessInDatabase(response.message);
-                }
-                if (response.status == false) {
-                    FailedResponseFromDatabase(response.message);
-                }
-            }
-        });
-    }
+        value = parseInt($(this).next('.qty-input').val(), 10);
 
-    function submitOrder() {
-        var sessionValue = "<?php
-                            // echo $_SESSION["__cart"]; 
-                            ?>";
-        $.ajax({
-            url: "{{route('submitOrder')}}",
-            method: "post",
-            data: {
-                cart_items: sessionValue,
-                _token: "{{csrf_token()}}"
-            },
-            success: function(response) {
-                if (response.status = true) {
-                    location.reload();
-                    $('#new_cart__dropdown__list').html(response.html);
-                    $('.total_count').html(response.total);
-                    $('.top_menu').html(response.cart_top_menu_total);
-                    DataSuccessInDatabase(response.message);
+        value = isNaN(value) ? 0 : value;
+
+        if (value == 0) {
+            return;
+        } else {
+            value--;
+        }
+
+        $(this).next('.qty-input').val(value);
+        $(this).next('.add_cart_btn').attr('data-quantity', value)
+        deductFromCart($(this),value);
+        function deductFromCart(elem, value) {
+            var product_id = $(elem).attr('data-product_id');
+            var quantity = value;
+            console.log(product_id, quantity)
+            debugger
+            // if (id != null) {
+            //     quantity = $('#' + id).val();
+            // }
+            $.ajax({
+                url: "{{route('CartDeduct')}}",
+                method: "post",
+                data: {
+                    product_id: product_id,
+                    quantity: quantity,
+                    _token: "{{csrf_token()}}"
+                },
+                success: function(response) {
+                    if (response.status = true) {
+                        // location.reload();
+                        DataSuccessInDatabase(response.message);
+                    }
+                    if (response.status == false) {
+                        FailedResponseFromDatabase(response.message);
+                    }
                 }
-                if (response.status == false) {
-                    FailedResponseFromDatabase(response.message);
-                }
-            }
-        });
-    }
+            });
+        }
+    });
+
 </script>
 @endsection

@@ -26,6 +26,7 @@ class OrderController extends Controller
     }
 
     public function submitOrder(Request $request){
+        // dd(session('__cart'));
         if (session('__cart')) {
             DB::beginTransaction();
             $cart_id  = \Str::random(10);
@@ -49,6 +50,7 @@ class OrderController extends Controller
             $order_id=$order->create($order_data);
             
             foreach (session('__cart') as $key => $cart_items) {
+                // dd($cart_items);
 
                 $order_list_data =[
                     'order_id'   =>$order_id->id,
