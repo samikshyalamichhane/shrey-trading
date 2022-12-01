@@ -67,7 +67,7 @@
                             <div class="row">
                                 <div class="col-lg-12 col-sm-12 form-group">
                                     <label> Name</label>
-                                    <input class="form-control" type="text" value="{{ (@$user_info->name) ?  @$user_info->name: old('name')}}" name="name" placeholder=" name Here">
+                                    <input class="form-control" type="text" value="{{ (@$user_info->name) ?  @$user_info->name: old('name')}}" name="name" placeholder=" Name Here">
                                     @if($errors->has('name'))
                                     <span class=" alert-danger">{{$errors->first('name')}}</span>
                                     @endif
@@ -76,21 +76,21 @@
                             <div class="row">
                                 <div class="col-lg-6 col-sm-6 form-group">
                                     <label>Email</label>
-                                    <input class="form-control" type="text" value="{{ (@$user_info->email) ?  @$user_info->email: old('email')}}" name="email" placeholder="user sub title Here">
+                                    <input class="form-control" type="text" value="{{ (@$user_info->email) ?  @$user_info->email: old('email')}}" name="email" placeholder="Email Here">
                                     @if($errors->has('email'))
                                     <span class=" alert-danger">{{$errors->first('email')}}</span>
                                     @endif
                                 </div>
                                 <div class="col-lg-6 col-sm-6 form-group">
                                     <label> Phone Number</label>
-                                    <input class="form-control" type="text" value="{{ (@$user_info->phone_number) ?  @$user_info->phone_number: old('phone_number')}}" name="phone_number" placeholder="user sub title Here">
+                                    <input class="form-control" type="text" value="{{ (@$user_info->phone_number) ?  @$user_info->phone_number: old('phone_number')}}" name="phone_number" placeholder="Phone Number Here">
                                     @if($errors->has('phone_number'))
                                     <span class=" alert-danger">{{$errors->first('phone_number')}}</span>
                                     @endif
                                 </div>
                                 <div class="col-lg-6 col-sm-6 form-group">
                                     <label> Address</label>
-                                    <input class="form-control" type="text" value="{{ (@$user_info->address) ?  @$user_info->address: old('address')}}" name="address" placeholder="user sub title Here">
+                                    <input class="form-control" type="text" value="{{ (@$user_info->address) ?  @$user_info->address: old('address')}}" name="address" placeholder="Address Here">
                                     @if($errors->has('address'))
                                     <span class=" alert-danger">{{$errors->first('address')}}</span>
                                     @endif

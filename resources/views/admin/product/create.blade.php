@@ -42,7 +42,7 @@
 
                                         <div class="col-lg-6 col-sm-12 form-group">
                                             <label><strong> code</strong></label>
-                                            <input class="form-control" type="text" id="code" value="{{ (@$product_info->code) ?  @$product_info->code: old('code')}}" name="code" placeholder="code">
+                                            <input class="form-control" type="text" id="code" value="{{ (@$product_info->code) ?  @$product_info->code: old('code')}}" name="code" placeholder="Product code">
 
                                             @if($errors->has('code'))
                                             <div class="error alert-danger">{{$errors->first('code')}}</div>

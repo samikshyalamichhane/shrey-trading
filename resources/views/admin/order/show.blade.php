@@ -27,7 +27,7 @@
                             <div class="ibox-title">Order Information</div>
                             <!-- <div class="ibox-tools"> -->
                             <a class="btn btn-info print" href="#" title="Edit" data-id="{{$order->id}}"><span class="fa fa-edit"></span>Print</a>
-                           
+
                             <a class="btn btn-warning" href="{{ route('export_view',$order->id) }}">Export Order Lists Data</a>
                             <!-- <a class="btn btn-info print" href="#" title="Edit" data-id="{{$order->id}}"><span class="fa fa-edit"></span>Export</a> -->
                             <!-- </div> -->
@@ -42,6 +42,7 @@
                                                 <th>Product Name</th>
                                                 <th>Code</th>
                                                 <th>Quantity</th>
+                                                <th>Amount</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -53,13 +54,20 @@
                                                 <td>{{@$order_list->product_info->name}}</td>
                                                 <td>{{@$order_list->product_info->code}}</td>
                                                 <td>{{@$order_list->quantity}}</td>
+                                                <td>Rs.{{@$order_list['amount']}}</td>
                                             </tr>
                                             @endforeach
                                             <tr>
                                                 <td colspan="3">
-                                                    <b> Total=</b>
+                                                    <b> Total Quantity</b>
                                                 </td>
                                                 <td>{{$order->quantity}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="4">
+                                                    <b> Total Amount</b>
+                                                </td>
+                                                <td>Rs.{{number_format(@$order->amount, 2)}}</td>
                                             </tr>
                                             <tr>
                                                 <td>
