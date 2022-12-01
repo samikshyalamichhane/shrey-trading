@@ -10,14 +10,16 @@
         </div>
         <ul class="side-menu metismenu">
             <li>
-                <a class="active" href="{{route('dashboard')}}"><i class="sidebar-item-icon fa fa-th-large"></i>
+                <a class="active" href="{{route('dashboard')}}">
+                    <!--<i class="sidebar-item-icon fa fa-th-large"></i>-->
+                    <i class="sidebar-item-icon fa fa-tachometer" aria-hidden="true"></i>
                     <span class="nav-label">Dashboard</span>
                 </a>
             </li>
             @if(auth()->user())
             <li>
                 <a href="javascript:;">
-                    <i class="sidebar-item-icon fa fa-plane"></i>
+                     <i class="sidebar-item-icon fa fa-user-circle-o" aria-hidden="true"></i>
                     <span class="nav-label">Users</span>
                     <i class="fa fa-angle-left arrow"></i>
                 </a>
@@ -39,7 +41,7 @@
             </li>
             <li>
                 <a href="javascript:;">
-                    <i class="sidebar-item-icon fa fa-plane"></i>
+                    <i class="sidebar-item-icon fa fa-users" aria-hidden="true"></i>
                     <span class="nav-label">Clients</span>
                     <i class="fa fa-angle-left arrow"></i>
                 </a>

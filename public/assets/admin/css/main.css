@@ -2347,7 +2347,8 @@ smaller than 560
   background-color: #c7cccf !important; }
 
 .bg-silver-300 {
-  background-color: #d1d5d8 !important; }
+  /*background-color: #d1d5d8 !important; }*/
+  background-color: #747475!important; }
 
 .bg-silver-200 {
   background-color: #dee1e3 !important; }
