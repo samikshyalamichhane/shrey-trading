@@ -5317,10 +5317,12 @@ font-size:18px;
 .bg-silver-300 {
   background-color: #747475!important;
 }
-.login-bg .content{
-    background:#fff!important;
-    padding:0 20px 20px 20px;
+.btn-info{
+    /*background:none;*/
+    /*border:none;*/
+    /*color:#cccccc;*/
 }
+
 
 
 
