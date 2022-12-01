@@ -59,7 +59,7 @@
                 <div class="col-lg-9 col-md-9 col-12">
                     <div class="ibox">
                         <div class="ibox-head">
-                            <div class="ibox-title">user Information</div>
+                            <div class="ibox-title">User Information</div>
                             <div class="ibox-tools">
                             </div>
                         </div>
@@ -67,8 +67,8 @@
                             
                             <div class="row">
                                 <div class="col-lg-12 col-sm-12 form-group">
-                                    <label>Name</label>
-                                    <input class="form-control" type="text" value="{{(@$user_info->name) ? @$user_info->name : old('name')}}" name="name" placeholder="Enter Name Here">
+                                    <label>user Name</label>
+                                    <input class="form-control" type="text" value="{{(@$user_info->name) ? @$user_info->name : old('name')}}" name="name" placeholder="User name here">
                                     @if($errors->has('name'))
                                     <span class=" alert-danger">{{$errors->first('name')}}</span>
                                     @endif
@@ -76,15 +76,15 @@
                             </div>
                             <div class="row">
                                 <div class="col-lg-6 col-sm-6 form-group">
-                                    <label>Email</label>
-                                    <input class="form-control" type="text" value="{{(@$user_info->email) ? @$user_info->email : old('email')}}" name="email" placeholder="Enter Email Here">
+                                    <label>User Email</label>
+                                    <input class="form-control" type="text" value="{{(@$user_info->email) ? @$user_info->email : old('email')}}" name="email" placeholder="User sub title here">
                                     @if($errors->has('email'))
                                     <span class=" alert-danger">{{$errors->first('email')}}</span>
                                     @endif
                                 </div>
                                 <div class="col-lg-6 col-sm-6 form-group">
-                                    <label>Phone Number</label>
-                                    <input class="form-control" type="text" value="{{(@$user_info->phone_number) ? @$user_info->phone_number : old('phone_number')}}" name="phone_number" placeholder="Phone Number Here">
+                                    <label>User Phone Number</label>
+                                    <input class="form-control" type="text" value="{{(@$user_info->phone_number) ? @$user_info->phone_number : old('phone_number')}}" name="phone_number" placeholder="User sub title here">
                                     @if($errors->has('phone_number'))
                                     <span class=" alert-danger">{{$errors->first('phone_number')}}</span>
                                     @endif
@@ -101,7 +101,7 @@
                                 </div>
                                 <div class="col-lg-6 col-sm-6 form-group">
                                     <label>Re-password</label>
-                                    <input class="form-control" type="password" value="" name="password_confirmation" placeholder="password_confirmation here">
+                                    <input class="form-control" type="password" value="" name="password_confirmation" placeholder="Password_confirmation here">
                                     @if($errors->has('password_confirmation'))
                                     <span class=" alert-danger">{{$errors->first('password_confirmation')}}</span>
                                     @endif

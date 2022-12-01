@@ -5281,7 +5281,7 @@ font-size:18px;
 
 .newcartlist .nav-tabs .nav-link.active,.newcartlist .nav-tabs .nav-link:focus{
     font-weight:500;
-    font-size:20px;
+    font-size:17px;
     color:#000;
     border: none;
     border-bottom: 1px solid #000;
@@ -5322,6 +5322,15 @@ font-size:18px;
     /*border:none;*/
     /*color:#cccccc;*/
 }
+.samebg .card-body{
+    padding:2px 1px;
+}
+.samebg ul li.newsearch input{
+    margin-top: 9px;
+margin-left: 16px;
+border-radius: 15px;
+}
+    
 
 
 

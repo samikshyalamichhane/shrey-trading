@@ -1,101 +1,15 @@
 @extends('layouts.admin')
 @section('page_title') Admin @endsection
 @section('content')
-<div class="page-content fade-in-up">
-    <div class="row">
-        @if(auth()->user())
-        <div class="col-md-4">
-            <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">Total Users: {{count($users)}}</h5>
-                </div>
-                <div class="card-footer bg-transparent">
-                    <div class="stats">
-                        <a href="{{route('users.index')}}" target="_blank" style="color:white">
-                            <i class="fas fa-sync-alt text-white"></i>
-                            <span> Go to Users List</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card text-white bg-danger mb-3" style="max-width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">Total Clients: {{count($clients)}}</h5>
-                </div>
-                <div class="card-footer bg-transparent">
-                    <div class="stats">
-                        <a href="" target="_blank" style="color:white">
-                            <i class="fas fa-sync-alt text-white"></i>
-                            <span> Go to Clients List</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        @endif
-        @if(auth()->guard('client')->user())
-        <div class="col-md-4">
-            <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">My Products: {{count($myProducts)}} </h5>
-                </div>
-                <div class="card-footer bg-transparent">
-                    <div class="stats">
-                        <a href="{{route('products.index')}}" target="_blank" style="color:white">
-                            <i class="fas fa-sync-alt text-white"></i>
-                            <span> Go to Products List</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        @endif
-        @if(auth()->guard('client')->user() || auth()->user())
-        <div class="col-md-4">
-            <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">Total Products: {{count($products)}}</h5>
-                </div>
-                <div class="card-footer bg-transparent">
-                    <div class="stats">
-                        <a href="{{route('products.index')}}" target="_blank" style="color:white">
-                            <i class="fas fa-sync-alt text-white"></i>
-                            <span> Go to Products List</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        @endif
-        @if(auth()->guard('client')->user())
-        <div class="col-md-4">
-            <div class="card text-white bg-secondary mb-3" style="max-width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">Total Orders: {{count($orders)}}</h5>
-                </div>
-                <div class="card-footer bg-transparent">
-                    <div class="stats">
-                        <a href="{{route('orders.index')}}" target="_blank" style="color:white">
-                            <i class="fas fa-sync-alt text-white"></i>
-                            <span> Go to Orders List</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        @endif
-    </div>
 
-
-</div>
 @if(auth()->guard('client')->user())
 <div class="page-content fade-in-up">
     <div class="col-sm-12">
         <div class="row newcartlist">
-            <div class="col-sm-6">
+            <div class="col-sm-8">
                 <div class="samebg">
+                  <div class="row">
+                      <div class="col-md-8">
                 <div class="ibox-title">
                     <x-product></x-product>
                 </div>
@@ -130,7 +44,7 @@
 
                                                 <input type="text" name="" class="qty-input" value="1">
                                                 <button class="plus">+</button>
-                                                <button class="btn category__card__body__cart-btn add_cart_btn list_cart_btn" data-product_id="{{$all_cart->id}}" data-quantity="1" data-type="plus" onclick="addToCart(this)"><span><i class="fa fa-cart-plus" aria-hidden="true"></i></span>add to cart</button>
+                                                <!--<button class="btn category__card__body__cart-btn add_cart_btn list_cart_btn" data-product_id="{{$all_cart->id}}" data-quantity="1" data-type="plus" onclick="addToCart(this)"><span><i class="fa fa-cart-plus" aria-hidden="true"></i></span>add to cart</button>-->
 
                                             </div>
                                         </div>
@@ -176,7 +90,7 @@
 
                                                 <input type="text" name="" class="qty-input" value="1">
                                                 <button class="plus">+</button>
-                                                <button class="btn category__card__body__cart-btn add_cart_btn list_cart_btn" data-product_id="{{$all_cart->id}}" data-quantity="1" data-type="plus" onclick="addToCart(this)"><span><i class="fa fa-cart-plus" aria-hidden="true"></i></span>add to cart</button>
+                                                <!--<button class="btn category__card__body__cart-btn add_cart_btn list_cart_btn" data-product_id="{{$all_cart->id}}" data-quantity="1" data-type="plus" onclick="addToCart(this)"><span><i class="fa fa-cart-plus" aria-hidden="true"></i></span>add to cart</button>-->
 
                                             </div>
                                         </div>
@@ -196,60 +110,159 @@
                     </div>
                 </div>
             </div>
-        </div></div>
-         
-            <div class="col-sm-6">
-                <div class="samebg">
-                 <div class="ibox-title">Cart Items</div>
-                <form action="{{route('submitOrder')}}" method="POST">
-                    @csrf
-                    <table id="example-table" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
-                        <thead>
-                            <tr>
-                                <th>S.N.</th>
-                                <th>Products</th>
-                                <th>Quantity </th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @if(session('__cart'))
-                            @foreach(session('__cart') as $id => $details)
-                            <tr>
-                                <td>{{++$id}}</td>
-                                <td>{{@$details['name']}}</td>
-                                <td>{{$details['quantity']}}</td>
-                                <td>
-                                    <div class="category__card__body__cart">
-                                        <div class="whole-cart-wrapp">
-                                            <div class="cart_list">
-
-                                                <div class="qty-wrapper">
-                                                    <button class="minus">-</button>
-
-                                                    <input type="text" name="" class="qty-input" value="1">
-                                                    <button class="plus">+</button>
-                                                </div>
-                                            </div>
-                                             <!--<button class="btn category__card__body__cart-btn add_cart_btn list_cart_btn" data-product_id="{{$details['id']}}" data-quantity="1" data-type="plus" onclick="addToCart(this)"><span><i class="fa fa-cart-plus" aria-hidden="true"></i></span>add to cart</button> -->
-                                            <button class="btn category__card__body__cart-btn add_cart_btn list_cart_btn del" data-pro_id="{{$details['id']}}" data-quantity="1" data-type="plus" onclick="deleteCart(this)"><i class="fa fa-trash"></i></button>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            @endforeach
-                            @endif
-
-
-                        </tbody>
-
-                    </table>
-                    <div class="form-group">
+            </div>
+            <div class="col-md-4 mt-5">
+                <div class="form-group">
                         <label><strong>Order Note</strong></label>
                         <textarea name="order_note" id="order_note" rows="5" placeholder="Order Note Here" class="form-control" style="resize: none;"></textarea>
                     </div>
                     <button class="btn btn-sm btn-success submitOrder" type="success">Submit Order</button>
+            </div>
+        </div>
+        </div>
+        
+        
+        
+        
+        </div>
+         
+            <div class="col-sm-4">
+                <div class="samebg">
+                    <div class="page-content fade-in-up">
+    <div class="row">
+        @if(auth()->user())
+        <div class="col-12">
+            <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Total Users: {{count($users)}}</h5>
+                </div>
+                <div class="card-footer bg-transparent">
+                    <div class="stats">
+                        <a href="{{route('users.index')}}" target="_blank" style="color:white">
+                            <i class="fas fa-sync-alt text-white"></i>
+                            <span> Go to Users List</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="card text-white bg-danger mb-3" style="max-width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Total Clients: {{count($clients)}}</h5>
+                </div>
+                <div class="card-footer bg-transparent">
+                    <div class="stats">
+                        <a href="" target="_blank" style="color:white">
+                            <i class="fas fa-sync-alt text-white"></i>
+                            <span> Go to Clients List</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endif
+        @if(auth()->guard('client')->user())
+        <div class="col-md-6">
+            <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">My Products: {{count($myProducts)}} </h5>
+                </div>
+                <div class="card-footer bg-transparent">
+                    <div class="stats">
+                        <a href="{{route('products.index')}}" target="_blank" style="color:white">
+                            <i class="fas fa-sync-alt text-white"></i>
+                            <span> Go to Products List</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endif
+        @if(auth()->guard('client')->user() || auth()->user())
+        <div class="col-md-6">
+            <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Total Products: {{count($products)}}</h5>
+                </div>
+                <div class="card-footer bg-transparent">
+                    <div class="stats">
+                        <a href="{{route('products.index')}}" target="_blank" style="color:white">
+                            <i class="fas fa-sync-alt text-white"></i>
+                            <span> Go to Products List</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endif
+        @if(auth()->guard('client')->user())
+        <div class="col-md-6">
+            <div class="card text-white bg-secondary mb-3" style="max-width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Total Orders: {{count($orders)}}</h5>
+                </div>
+                <div class="card-footer bg-transparent">
+                    <div class="stats">
+                        <a href="{{route('orders.index')}}" target="_blank" style="color:white">
+                            <i class="fas fa-sync-alt text-white"></i>
+                            <span> Go to Orders List</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endif
+    </div>
+
+
+</div>
+                
+                <form action="{{route('submitOrder')}}" method="POST">
+                    @csrf
+                    <!--<table id="example-table" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">-->
+                    <!--    <thead>-->
+                    <!--        <tr>-->
+                    <!--            <th>S.N.</th>-->
+                    <!--            <th>Products</th>-->
+                    <!--            <th>Quantity </th>-->
+                    <!--            <th></th>-->
+                    <!--        </tr>-->
+                    <!--    </thead>-->
+                    <!--    <tbody>-->
+                    <!--        @if(session('__cart'))-->
+                    <!--        @foreach(session('__cart') as $id => $details)-->
+                    <!--        <tr>-->
+                    <!--            <td>{{++$id}}</td>-->
+                    <!--            <td>{{@$details['name']}}</td>-->
+                    <!--            <td>{{$details['quantity']}}</td>-->
+                    <!--            <td>-->
+                    <!--                <div class="category__card__body__cart">-->
+                    <!--                    <div class="whole-cart-wrapp">-->
+                    <!--                        <div class="cart_list">-->
+
+                    <!--                            <div class="qty-wrapper">-->
+                    <!--                                <button class="minus">-</button>-->
+
+                    <!--                                <input type="text" name="" class="qty-input" value="1">-->
+                    <!--                                <button class="plus">+</button>-->
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+                                             <!--<button class="btn category__card__body__cart-btn add_cart_btn list_cart_btn" data-product_id="{{$details['id']}}" data-quantity="1" data-type="plus" onclick="addToCart(this)"><span><i class="fa fa-cart-plus" aria-hidden="true"></i></span>add to cart</button> -->
+                    <!--                        <button class="btn category__card__body__cart-btn add_cart_btn list_cart_btn del" data-pro_id="{{$details['id']}}" data-quantity="1" data-type="plus" onclick="deleteCart(this)"><i class="fa fa-trash"></i></button>-->
+                    <!--                    </div>-->
+                    <!--                </div>-->
+                    <!--            </td>-->
+                    <!--        </tr>-->
+
+                    <!--        @endforeach-->
+                    <!--        @endif-->
+
+
+                    <!--    </tbody>-->
+
+                    <!--</table>-->
+                    
                 </form>
 
             </div></div>
