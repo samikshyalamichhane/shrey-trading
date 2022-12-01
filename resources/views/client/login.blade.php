@@ -31,10 +31,11 @@
 {!! Session::get('error') !!}
 </div>
 @endif
+<div class="login-bg">
 <div class="content">
     
         <div class="brand">
-            <a class="link" href="{{route('home')}}" style="font-size: 25px;"> Shray <strong>Trading </strong></a>
+            <a class="link" href="{{route('home')}}"><img src="{{asset('/assets/admin/images/logoshray.png')}}"></a>
         </div>
         <form id="login-form" action="{{ route('client.login') }}" method="post">
             @csrf
@@ -73,5 +74,6 @@
                 <button class="btn btn-info btn-block" type="submit">Login</button>
             </div>
         </form>
+    </div>
     </div>
 @endsection

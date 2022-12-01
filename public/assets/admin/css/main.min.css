@@ -5310,6 +5310,18 @@ font-size:18px;
     font-weight:600;
     border:1px solid #666666;
 }
+.login-bg{
+    background:#747475;
+}
+
+.bg-silver-300 {
+  background-color: #747475!important;
+}
+.login-bg .content{
+    background:#fff!important;
+    padding:0 20px 20px 20px;
+}
+
 
 
 

@@ -57,4 +57,47 @@
 	background-color: #ebedee;
 	text-align: center;
 }
+/*New Css Added*/
+.login-bg .content{
+    background:#fff!important;
+    padding:20px;
+    margin-top:20px;
+}
+.login-bg h2{
+    font-weight: 700;
+font-size: 24px;
+margin-top:0;
+}
+.login-bg input{
+    height:40px;
+    background:#fcfdfe;
+    border-radius:8px;
+}
+.login-bg::-webkit-input-placeholder { /* Edge */
+  color: #4B506D;
+  font-weight: 400;
+font-size: 14px;
+}
 
+.login-bg:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: #4B506D;
+  font-weight: 400;
+font-size: 14px;
+}
+
+.login-bg::placeholder {
+  color: #4B506D;
+  font-weight: 400;
+font-size: 14px;
+}
+.login-bg .btn.btn-info.btn-block{
+    height:50px;
+    background:#f1595a;
+    border:1px solid #f1595a;
+    font-weight: 600;
+    font-size: 14px;
+    color:#fff;
+    border-radius:8px;
+
+    
+}
