@@ -38,8 +38,12 @@ class AdminLoginController extends Controller
         }
     }
 
-    public function dashboard(){
+    public function dashboard(Request $request){
         $products = Product::get();
+    //     $products = Product::all();
+    //   if($request->keyword != ''){
+    //   $products = Product::where('name','LIKE','%'.$request->keyword.'%')->get();
+    //   }
         if(auth()->guard('client')->user()){
             $myProducts = auth()->guard('client')->user()->products;
         } else {
@@ -50,6 +54,22 @@ class AdminLoginController extends Controller
         $clients = Client::get();
         return view('admin.dashboard',compact('products','myProducts','orders','clients','users'));
     }
+
+    public function searchProduct(Request $request)
+   {
+    // dd($request->a);
+    $details = Product::orderBy('created_at', 'desc')->get();
+    if(auth()->guard('client')->user()){
+        $details = auth()->guard('client')->user()->products;
+    }
+
+      if($request->a != ''){
+      $details = Product::where('name','LIKE','%'.$request->a.'%')->get();
+      }
+        $view = \View::make("admin.product.productstable")->with('details', $details)->render();
+        return response()->json(['html' => $view, 'status' => 'successful', 'data' => $details]);
+    }
+
 
     public function logout(Request $request){
         Auth::logout();

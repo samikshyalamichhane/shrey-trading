@@ -44,6 +44,7 @@ Route::delete('/orders/{id}', [OrderController::class,'delete'])->name('orders.d
 Route::post('/orders/', [OrderController::class,'updateStatus'])->name('updateStatus');
 Route::post('print-order',[OrderController::class,'printOrder'])->name('printOrder');
 Route::get('export/{id}', [ExportController::class, 'export_view'])->name('export_view');
+Route::get('/product/search',[AdminLoginController::class,'searchProduct'])->name('searchProduct');
 
 
 
