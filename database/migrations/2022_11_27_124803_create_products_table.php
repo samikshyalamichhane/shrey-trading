@@ -18,6 +18,8 @@ class CreateProductsTable extends Migration
             $table->string('name')->nullable();
             $table->string('code')->nullable();
             $table->string('price')->nullable();
+            $table->string('qty')->default(0);
+
             $table->boolean('publish')->default(1);
             $table->timestamps();
         });

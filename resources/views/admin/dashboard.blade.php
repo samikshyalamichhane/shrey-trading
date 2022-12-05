@@ -45,7 +45,7 @@
                                 @csrf
                                 <div class="row">
                                     <div class="col-md-8  ibox-body" id="appendMyProducts">
-                                        <table id="example-table2" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
+                                        <!-- <table id="example-table2" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
                                             <thead>
                                                 <tr>
                                                     <th>S.N.</th>
@@ -81,7 +81,7 @@
 
                                             </tbody>
 
-                                        </table>
+                                        </table> -->
                                     </div>
 
                                     <div class="col-md-4">
@@ -275,7 +275,7 @@ function search() {
             success: function(response) {
                 console.log(response.data)
                 $('#appendProducts').html(response.html)
-                // $('#appendMyProducts').html(response.html)
+                $('#appendMyProducts').html(response.html)
             },
             error: function(error) {
                 $('#notification-bar').text('An error occurred');

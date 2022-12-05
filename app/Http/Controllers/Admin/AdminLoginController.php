@@ -57,7 +57,6 @@ class AdminLoginController extends Controller
 
     public function searchProduct(Request $request)
    {
-    // dd($request->a);
     $details = Product::orderBy('created_at', 'desc')->get();
     if(auth()->guard('client')->user()){
         $details = auth()->guard('client')->user()->products;
