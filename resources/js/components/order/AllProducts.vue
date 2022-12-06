@@ -185,7 +185,7 @@ export default {
 
     async submitOrder() {
       if (this.selectedProduct !== "") {
-        await axios.post("/api/submit-order/", {
+        await axios.post("/carts/submit-order/", {
           products: this.selectedProduct,
           order_note: this.order_note,
         });

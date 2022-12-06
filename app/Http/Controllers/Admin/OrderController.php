@@ -50,26 +50,25 @@ class OrderController extends Controller
             $order_id=$order->create($order_data);
             
             foreach ($request->products as $key => $cart_items) {
-                // dd($cart_items);
-
-                $order_list_data =[
-                    'order_id'   =>$order_id->id,
-                    'client_id'   =>auth()->guard('client')->user()->id,
-                    'track_no'  =>$track_no,
-                    'quantity'=> $cart_items['quantity'],
-                    'amount'=>$cart_items['price'],
-                    'product_id'=>$cart_items['id'],
-                ];
-                $order_list = new OrderList();
-                $order_list->fill($order_list_data);
-                $order_list->save();
-                DB::commit();
+                if($cart_items['quantity'] != 0){
+                    $order_list_data =[
+                        'order_id'   =>$order_id->id,
+                        'client_id'   =>auth()->guard('client')->user()->id,
+                        'track_no'  =>$track_no,
+                        'quantity'=> $cart_items['quantity'],
+                        'amount'=>$cart_items['price'],
+                        'product_id'=>$cart_items['id'],
+                    ];
+                    $order_list = new OrderList();
+                    $order_list->fill($order_list_data);
+                    $order_list->save();
+                    DB::commit();
+                }
             }
-            request()->session()->forget('__cart');
             $order_data['order_id']=$order_id->id;
             $order_data['order_list']=$order_id->order_list;
             $order_data['amount']=$order_id->amount;
-            return back()->with('success', 'Order has been placed successfully.');
+            return response()->json(['status' => 'successful', 'data' => $order]);
         }
     }
 
