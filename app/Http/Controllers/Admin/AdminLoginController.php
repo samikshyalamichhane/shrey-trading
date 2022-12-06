@@ -58,15 +58,10 @@ class AdminLoginController extends Controller
     public function searchProduct(Request $request)
    {
     $details = Product::orderBy('created_at', 'desc')->get();
-    if(auth()->guard('client')->user()){
-        $details = auth()->guard('client')->user()->products;
-    }
-
-      if($request->a != ''){
-      $details = Product::where('name','LIKE','%'.$request->a.'%')->get();
+      if($request->q != ''){
+      $details = Product::where('name','LIKE','%'.$request->q.'%')->get();
       }
-        $view = \View::make("admin.product.productstable")->with('details', $details)->render();
-        return response()->json(['html' => $view, 'status' => 'successful', 'data' => $details]);
+        return response()->json([ 'status' => 'successful', 'data' => $details]);
     }
 
 
