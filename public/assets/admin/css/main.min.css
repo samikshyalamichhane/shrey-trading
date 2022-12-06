@@ -5262,13 +5262,9 @@ table.dataTable {
 .newcartlist .cart_list .qty-input{
     background:none;
     border:none;
-<<<<<<< HEAD
-    width:15%;
-=======
     width:8%;
->>>>>>> 52682d7fbaedc72bfbfa26776d3d30406e69a0a2
 }
-.newcartlist .minus,.newcartlist .plus{
+/* .newcartlist .minus,.newcartlist .plus{
     background: #666;
 border-radius: 100%;
 width: 27px;
@@ -5277,7 +5273,7 @@ color: #fff;
 border:none;
 line-height:25px;
 font-size:18px;
-}
+} */
 .newcartlist .samebg{
     background:#fff;
     padding:15px;

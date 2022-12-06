@@ -16,7 +16,7 @@
                     <div class="ibox-title">
                         <x-product></x-product>
                     </div>
-                    <all-products :products="{{ json_encode($products) }}" :myProducts="{{ json_encode($myProducts) }}"/>
+                    <all-products :myproducts="{{ json_encode($myProducts) }}" :products="{{ json_encode($products) }}"/>
                 </div>
             </div>
             <div class="col-sm-4">
