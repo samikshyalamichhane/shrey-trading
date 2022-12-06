@@ -194,7 +194,7 @@ export default {
         if (found) {
           this.$toast.error(`Product with 0 quentity cannot be submitted!`);
         } else {
-          await axios.post("/api/submit-order/", {
+          await axios.post("/carts/submit-order/", {
             products: this.selectedProduct,
             order_note: this.order_note,
           });
