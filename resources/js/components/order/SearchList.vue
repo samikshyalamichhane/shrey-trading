@@ -1,6 +1,5 @@
 <template>
-  <search-list v-if="(this.$store.state.searchList != null)"/>
-  <div class="row" v-else>
+  <div class="row">
     <div class="col-md-8 ibox-body">
       <table
         id="example-table1"
@@ -25,10 +24,10 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-if="!myproducts">
-            <td colspan="8">You do not have any data yet.</td>
-          </tr>
-          <tr v-for="(product, index) in myproducts" :key="index">
+          <tr v-if="this.$store.state.searchList == ''">
+                <td colspan="8" class="text-center">You do not have any similar data yet.</td>
+              </tr>
+          <tr v-for="(product, index) in this.$store.state.searchList" :key="index">
             <td>
               <input
                 type="checkbox"
@@ -62,8 +61,8 @@
           </tr>
         </tbody>
       </table>
-    </div>
-    <div class="col-md-4">
+      </div>
+      <div class="col-md-4">
       <div class="form-group">
         <label><strong>Order Note</strong></label>
         <textarea
@@ -78,12 +77,12 @@
       </div>
       <button class="btn btn-sm btn-success" @click="submit" type="submit">Submit Order</button>
     </div>
-  </div>
+      </div>
+
 </template>
 
 <script>
 export default {
-  props: ["myproducts"],
   data() {
     return {
       order_note: "",
@@ -98,17 +97,15 @@ export default {
         this.isAllSelected = false;
       } else {
         this.selectedProduct = [];
-        for (var product in this.myproducts) {
-          this.selectedProduct.push(this.myproducts[product]);
+        for (var product in this.$store.state.searchList) {
+          this.selectedProduct.push(this.$store.state.searchList[product]);
         }
         this.isAllSelected = true;
       }
     },
     select() {
-      if (this.selectedProduct.length !== this.myproducts.length) {
+      if (this.selectedProduct.length !== this.$store.state.searchList.length) {
         this.isAllSelected = false;
-      } else {
-        this.isAllSelected = true;
       }
     },
     increment(item) {
@@ -141,7 +138,7 @@ export default {
     },
 
     async submit() {
-      if (this.selectedProduct == "") {
+      if (this.selectedProduct.length < 1) {
         this.$toast.error(`Please select atleast one item!`);
       } else {
         let found = this.selectedProduct.find((product) => {

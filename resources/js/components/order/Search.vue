@@ -5,16 +5,20 @@
       v-model="query"
       class="form-control rounded"
       @keyup="filterCustomers"
-      placeholder="Name or email"
+      placeholder="search..."
     />
   </li>
+  <div>
+  </div>
 </template>
 
 <script>
+
 export default {
   data() {
     return {
       query: "",
+      searchReasult:[],
     };
   },
   mounted() {
@@ -29,7 +33,8 @@ export default {
       }
      
       axios.get("/product/search?q=" + this.query).then((res) => {
-       
+       this.searchReasult = res.data.data;
+       this.$store.commit('setSearchList', this.searchReasult);
       });
     },
   },

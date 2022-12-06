@@ -1,4 +1,17 @@
-import Vuex from "vuex";
+import { createStore } from "vuex";
 
-Vue.use(Vuex);
-
+export default createStore({
+  state: {
+    searchList: null
+  },
+  actions:{
+    setSearchList:({commit}) =>{
+        commit('setSearchList',null);
+      }
+  },
+  mutations: {
+    setSearchList(state, item) {
+        state.searchList = item;
+    }
+  }
+});

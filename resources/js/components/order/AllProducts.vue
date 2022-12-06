@@ -1,5 +1,6 @@
 <template>
-  <div class="tab-content" id="component-1-content">
+  <search-list v-if="(this.$store.state.searchList != null)"/>
+  <div class="tab-content" id="component-1-content" v-else>
     <div
       class="tab-pane fade show active"
       id="component-1-1"
