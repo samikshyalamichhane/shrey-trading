@@ -15450,7 +15450,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     submitOrder: function submitOrder() {
       var _this = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-        var found;
+        var found, response;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -15460,7 +15460,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   break;
                 }
                 _this.$toast.error("Please select atleast one item!");
-                _context.next = 11;
+                _context.next = 13;
                 break;
               case 4:
                 found = _this.selectedProduct.find(function (product) {
@@ -15473,15 +15473,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   break;
                 }
                 _this.$toast.error("Product with 0 quentity cannot be submitted!");
-                _context.next = 11;
+                _context.next = 13;
                 break;
               case 9:
                 _context.next = 11;
-                return axios__WEBPACK_IMPORTED_MODULE_0___default().post("/cart/submit-order/", {
+                return axios__WEBPACK_IMPORTED_MODULE_0___default().post("/carts/submit-order/", {
                   products: _this.selectedProduct,
                   order_note: _this.order_note
                 });
               case 11:
+                response = _context.sent;
+                if (response.status == 200) {
+                  _this.$toast.success("Order created successfully !!");
+                } else {
+                  _this.$toast.error("Somthing went wrong, Please try again!");
+                }
+              case 13:
               case "end":
                 return _context.stop();
             }
@@ -15569,7 +15576,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     submit: function submit() {
       var _this = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-        var found;
+        var found, response;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -15579,7 +15586,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   break;
                 }
                 _this.$toast.error("Please select atleast one item!");
-                _context.next = 11;
+                _context.next = 13;
                 break;
               case 4:
                 found = _this.selectedProduct.find(function (product) {
@@ -15592,15 +15599,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   break;
                 }
                 _this.$toast.error("Product with 0 quentity cannot be submitted!");
-                _context.next = 11;
+                _context.next = 13;
                 break;
               case 9:
                 _context.next = 11;
-                return axios.post("/cart/submit-order/", {
+                return axios.post("/carts/submit-order/", {
                   products: _this.selectedProduct,
                   order_note: _this.order_note
                 });
               case 11:
+                response = _context.sent;
+                if (response.status == 200) {
+                  _this.$toast.success("Order created successfully !!");
+                } else {
+                  _this.$toast.error("Somthing went wrong, Please try again!");
+                }
+              case 13:
               case "end":
                 return _context.stop();
             }
@@ -16001,7 +16015,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.checkbox,\r\n.btn {\r\n  cursor: pointer;\n}\n.toast-container {\r\n  bottom: inherit !important;\n}\n.qty {\r\n  background: none;\r\n  border: none;\r\n  width: 8%;\r\n  margin: 5px;\n}\r\n/* .number{ margin:20px;} */\n.number span {\r\n  cursor: pointer;\n}\n.number .minus,\r\n.number .plus {\r\n  width: 40px;\r\n  height: 34px;\r\n  background: #f2f2f2;\r\n  border-radius: 4px;\r\n  padding: 8px 5px 8px 5px;\r\n  border: 1px solid #ddd;\r\n  display: inline-block;\r\n  vertical-align: middle;\r\n  justify-content: center;\r\n  text-align: center;\n}\n.number input {\r\n  height: 34px;\r\n  width: 100px;\r\n  text-align: center;\r\n  font-size: 16px;\r\n  border: 1px solid #ddd;\r\n  border-radius: 4px;\r\n  display: inline-block;\r\n  vertical-align: middle;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.checkbox,\r\n.btn {\r\n  cursor: pointer;\n}\n.toast-container {\r\n  bottom: inherit !important;\n}\n.qty {\r\n  background: none;\r\n  border: none;\r\n  width: 8%;\r\n  margin: 5px;\n}\r\n/* .number{ margin:20px;} */\n.number span {\r\n  cursor: pointer;\n}\n.number .minus,\r\n.number .plus {\r\n  width: 34px;\r\n  height: 34px;\r\n  background: #f2f2f2;\r\n  border-radius: 4px;\r\n  padding: 8px 5px 8px 5px;\r\n  border: 1px solid #ddd;\r\n  display: inline-block;\r\n  vertical-align: middle;\r\n  justify-content: center;\r\n  text-align: center;\n}\n.number input {\r\n  height: 34px;\r\n  width: 80px;\r\n  text-align: center;\r\n  font-size: 16px;\r\n  border: 1px solid #ddd;\r\n  border-radius: 4px;\r\n  display: inline-block;\r\n  vertical-align: middle;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
