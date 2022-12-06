@@ -26,6 +26,7 @@ class OrderController extends Controller
     }
 
     public function submitOrder(Request $request){
+        dd($request->all());
         if ($request->selectedProduct) {
             DB::beginTransaction();
             $cart_id  = \Str::random(10);
