@@ -33,8 +33,8 @@ class OrderController extends Controller
             $quantity=0;
             $amount=0;
             foreach($request->products as $cart){
-                $quantity +=$cart['quantity'];
-                $amount +=$cart['price'] * $cart['quantity'];
+                $quantity +=$cart['qty'];
+                $amount +=$cart['price'] * $cart['qty'];
             }
             //saveing order
             $track_no=\Str::random(10);
