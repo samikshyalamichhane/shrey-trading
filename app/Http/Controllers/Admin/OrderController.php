@@ -50,12 +50,12 @@ class OrderController extends Controller
             $order_id=$order->create($order_data);
             
             foreach ($request->products as $key => $cart_items) {
-                if($cart_items['quantity'] != 0){
+                if($cart_items['qty'] != 0){
                     $order_list_data =[
                         'order_id'   =>$order_id->id,
                         'client_id'   =>auth()->guard('client')->user()->id,
                         'track_no'  =>$track_no,
-                        'quantity'=> $cart_items['quantity'],
+                        'quantity'=> $cart_items['qty'],
                         'amount'=>$cart_items['price'],
                         'product_id'=>$cart_items['id'],
                     ];
