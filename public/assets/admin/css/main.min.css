@@ -5262,7 +5262,11 @@ table.dataTable {
 .newcartlist .cart_list .qty-input{
     background:none;
     border:none;
+<<<<<<< HEAD
+    width:15%;
+=======
     width:8%;
+>>>>>>> 52682d7fbaedc72bfbfa26776d3d30406e69a0a2
 }
 .newcartlist .minus,.newcartlist .plus{
     background: #666;

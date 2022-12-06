@@ -199,7 +199,7 @@ function search() {
             success: function(response) {
                 console.log(response.data)
                 $('#appendProducts').html(response.html)
-                // $('#appendMyProducts').html(response.html)
+                $('#appendMyProducts').html(response.html)
             },
             error: function(error) {
                 $('#notification-bar').text('An error occurred');
