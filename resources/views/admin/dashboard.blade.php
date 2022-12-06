@@ -6,95 +6,17 @@
 @endsection
 @section('content')
 
+<div id="app">
 @if(auth()->guard('client')->user())
 <div class="page-content fade-in-up">
     <div class="col-sm-12">
         <div class="row newcartlist">
             <div class="col-sm-8">
                 <div class="samebg">
-
                     <div class="ibox-title">
                         <x-product></x-product>
                     </div>
-
-
-                    <div class="tab-content" id="component-1-content">
-
-                        <div class="tab-pane fade show active" id="component-1-1" role="tabpanel" aria-labelledby="component-1-1">
-                            <form action="{{route('submitOrder')}}" method="POST">
-                                @csrf
-                                <div class="row">
-                                    <div class="col-md-8 ibox-body" id="appendProducts" >
-                                    
-                                        
-                                    </div>
-
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label><strong>Order Note</strong></label>
-                                            <textarea name="order_note" id="order_note" rows="5" placeholder="Order Note Here" class="form-control" style="resize: none;"></textarea>
-                                        </div>
-                                        <button class="btn btn-sm btn-success submitOrder" type="submit">Submit Order</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-
-                        <div class="tab-pane fade" id="component-1-2" role="tabpanel" aria-labelledby="component-1-2">
-                            <form action="{{route('submitOrder')}}" method="POST">
-                                @csrf
-                                <div class="row">
-                                    <div class="col-md-8  ibox-body" id="appendMyProducts">
-                                        <table id="example-table2" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
-                                            <thead>
-                                                <tr>
-                                                    <th>S.N.</th>
-                                                    <th>Products</th>
-                                                    <th>Code </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-
-                                                @forelse($products as $cart_key => $all_cart)
-                                                <tr>
-                                                    <td>{{++$cart_key}}</td>
-                                                    <td>{{$all_cart->name}}</td>
-                                                    <td>{{$all_cart->code}}</td>
-                                                    <td>
-                                                        <div class="cart_list">
-
-                                                            <div class="qty-wrapper">
-                                                                <button class="minus" type="button" data-product_id="{{$all_cart->id}}">-</button>
-                                                                <input type="text" name="" class="qty-input" value="0">
-                                                                <button class="plus" type="button" data-product_id="{{$all_cart->id}}">+</button>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                @empty
-                                                <tr>
-                                                    <td colspan="8">
-                                                        You do not have any data yet.
-                                                    </td>
-                                                </tr>
-                                                @endforelse
-
-                                            </tbody>
-
-                                        </table>
-                                    </div>
-
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label><strong>Order Note</strong></label>
-                                            <textarea name="order_note" id="order_note" rows="5" placeholder="Order Note Here" class="form-control" style="resize: none;"></textarea>
-                                        </div>
-                                        <button class="btn btn-sm btn-success submitOrder" type="submit">Submit Order</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
+                    <all-products :products="{{ json_encode($products) }}" :myProducts="{{ json_encode($myProducts) }}"/>
                 </div>
             </div>
             <div class="col-sm-4">
@@ -246,9 +168,11 @@
     </div>
 </div>
 @endif
-
+</div>
 @endsection
 @section('scripts')
+<script src="{{mix('js/app.js')}}"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="{{asset('/assets/admin/vendors/DataTables/datatables.min.js')}}" type="text/javascript"></script>
 <script type="text/javascript">

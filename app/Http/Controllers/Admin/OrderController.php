@@ -26,12 +26,12 @@ class OrderController extends Controller
     }
 
     public function submitOrder(Request $request){
-        if (session('__cart')) {
+        if ($request->selectedProduct) {
             DB::beginTransaction();
             $cart_id  = \Str::random(10);
             $quantity=0;
             $amount=0;
-            foreach(session('__cart') as $cart){
+            foreach($request->selectedProduct as $cart){
                 $quantity +=$cart['quantity'];
                 $amount +=$cart['price'] * $cart['quantity'];
             }
@@ -48,7 +48,7 @@ class OrderController extends Controller
             $order = new Order();
             $order_id=$order->create($order_data);
             
-            foreach (session('__cart') as $key => $cart_items) {
+            foreach ($request->selectedProduct as $key => $cart_items) {
                 // dd($cart_items);
 
                 $order_list_data =[
