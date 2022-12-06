@@ -36,7 +36,6 @@
       role="tabpanel"
       aria-labelledby="component-1-2"
     >
-      <form>
         <div class="row">
           <div class="col-md-8 ibox-body" id="appendMyProducts">
             <table
@@ -121,7 +120,6 @@
             </button>
           </div>
         </div>
-      </form>
     </div>
   </div>
 </template>
@@ -187,7 +185,7 @@ export default {
 
     async submitOrder() {
       if (this.selectedProduct !== "") {
-        await axios.post("", {
+        await axios.post("/api/submit-order/", {
           products: this.selectedProduct,
           order_note: this.order_note,
         });

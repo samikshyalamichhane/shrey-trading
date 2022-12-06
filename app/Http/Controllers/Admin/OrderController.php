@@ -26,13 +26,13 @@ class OrderController extends Controller
     }
 
     public function submitOrder(Request $request){
-        dd($request->all());
-        if ($request->selectedProduct) {
+        // dd($request->all());
+        if ($request->products) {
             DB::beginTransaction();
             $cart_id  = \Str::random(10);
             $quantity=0;
             $amount=0;
-            foreach($request->selectedProduct as $cart){
+            foreach($request->products as $cart){
                 $quantity +=$cart['quantity'];
                 $amount +=$cart['price'] * $cart['quantity'];
             }
@@ -42,14 +42,14 @@ class OrderController extends Controller
                 'client_id'   =>auth()->guard('client')->user()->id,
                 'quantity'=> $quantity,
                 'amount'=>$amount,
-                'order_note' => $request->message,
+                'order_note' => $request->order_note,
                 'track_no'=>$track_no,
                 'status' => 'New',
             ];
             $order = new Order();
             $order_id=$order->create($order_data);
             
-            foreach ($request->selectedProduct as $key => $cart_items) {
+            foreach ($request->products as $key => $cart_items) {
                 // dd($cart_items);
 
                 $order_list_data =[
