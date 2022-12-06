@@ -6,28 +6,7 @@
       role="tabpanel"
       aria-labelledby="component-1-1"
     >
-      <form @submit.prevent="submitOrder">
-        <div class="row">
-          <div class="col-md-8 ibox-body">
-            <my-products :myproducts="myproducts" />
-          </div>
-
-          <div class="col-md-4">
-            <div class="form-group">
-              <label><strong>Order Note</strong></label>
-              <textarea
-                name="order_note"
-                id="order_note"
-                rows="5"
-                placeholder="Order Note Here"
-                class="form-control"
-                style="resize: none"
-              ></textarea>
-            </div>
-            <button class="btn btn-sm btn-success" type="submit">Submit Order</button>
-          </div>
-        </div>
-      </form>
+      <my-products :myproducts="myproducts" />
     </div>
 
     <div
@@ -82,11 +61,15 @@
                     <div class="qty-wrapper">
                       <div class="number">
                         <span class="minus" @click="decrement(product)">-</span>
-                        <input type="text" class="quantity" :id="product.id"
-                        oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*?)\..*/g, '$1');"
-                        v-model.number="product.qty"
-                        placeholder="Enter Qty"
-                        autocomplete="off"/>
+                        <input
+                          type="text"
+                          class="quantity"
+                          :id="product.id"
+                          oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*?)\..*/g, '$1');"
+                          v-model.number="product.qty"
+                          placeholder="Enter Qty"
+                          autocomplete="off"
+                        />
                         <span class="plus" @click="increment(product)">+</span>
                       </div>
                     </div>
@@ -194,10 +177,15 @@ export default {
         if (found) {
           this.$toast.error(`Product with 0 quentity cannot be submitted!`);
         } else {
-          await axios.post("/carts/submit-order/", {
+          const response = await axios.post("/carts/submit-order/", {
             products: this.selectedProduct,
             order_note: this.order_note,
           });
+          if(response.status == 200){
+            this.$toast.success(`Order created successfully !!`);
+          }else{
+            this.$toast.error(`Somthing went wrong, Please try again!`);
+          }
         }
       }
     },
@@ -205,7 +193,8 @@ export default {
 };
 </script>
 <style>
-.checkbox, .btn{
+.checkbox,
+.btn {
   cursor: pointer;
 }
 .toast-container {
@@ -218,28 +207,30 @@ export default {
   margin: 5px;
 }
 /* .number{ margin:20px;} */
-.number span {cursor:pointer; }
-.number .minus, .number .plus{
-  width: 40px;
-  height:34px;
-  background:#f2f2f2;
-  border-radius:4px;
-  padding:8px 5px 8px 5px;
-  border:1px solid #ddd;
+.number span {
+  cursor: pointer;
+}
+.number .minus,
+.number .plus {
+  width: 34px;
+  height: 34px;
+  background: #f2f2f2;
+  border-radius: 4px;
+  padding: 8px 5px 8px 5px;
+  border: 1px solid #ddd;
   display: inline-block;
   vertical-align: middle;
   justify-content: center;
   text-align: center;
 }
-.number input{
-  height:34px;
-  width: 100px;
+.number input {
+  height: 34px;
+  width: 80px;
   text-align: center;
   font-size: 16px;
-  border:1px solid #ddd;
-  border-radius:4px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
   display: inline-block;
   vertical-align: middle;
 }
-
 </style>

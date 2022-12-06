@@ -5,7 +5,5 @@
     <li class="nav-item">
         <a class="nav-link" data-toggle="tab" href="#component-1-2" role="tab" aria-controls="component-1-2" aria-selected="false"><strong>All Products</strong></a>
     </li>
-    <li class="nav-item newsearch">
-        <input type="search" id="search" name="gsearch" placeholder="  search products">
-    </li>
+    <search/>
 </ul>
