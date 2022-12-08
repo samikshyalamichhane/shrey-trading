@@ -345,29 +345,29 @@
                     <td colspan="8">You do not have any data yet.</td>
                   </tr>
                   <tr
-                    v-for="(item, index) in paginatedItems"
+                    v-for="(cartItem, index) in this.$store.state.cart"
                     :key="index"
                   >
                     <td>{{ index + 1 }}</td>
-                    <td>{{ item.name }}</td>
-                    <td>{{ item.code }}</td>
+                    <td>{{ cartItem.name }}</td>
+                    <td>{{ cartItem.code }}</td>
                     <td>
                       <div class="cart_list">
                         <div class="qty-wrapper">
                           <div class="number">
-                            <span class="minus" @click="decrement(item)"
+                            <span class="minus" @click="decrement(cartItem)"
                               >-</span
                             >
                             <input
                               type="text"
                               class="quantity"
-                              :id="item.id"
+                              :id="cartItem.id"
                               oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*?)\..*/g, '$1');"
-                              v-model.number="item.qty"
+                              v-model.number="cartItem.qty"
                               placeholder="Enter Qty"
                               autocomplete="off"
                             />
-                            <span class="plus" @click="increment(item)">+</span>
+                            <span class="plus" @click="increment(cartItem)">+</span>
                           </div>
                         </div>
                       </div>
@@ -375,7 +375,7 @@
                     <td class="text-right">
                       <button
                         type="button"
-                        v-on:click="removeItem(item)"
+                        v-on:click="removeItem(cartItem)"
                         class="btn btn-danger btn-sm"
                       >
                         <i class="fa fa-times"></i>
@@ -483,16 +483,19 @@
       </div>
     </div>
   </div>
+  <Modal :showModal="showModal"/>
 </template>
 
 <script>
-// import Products from './Products.vue'
+import Modal from './Modal.vue'
 export default {
   props: ["myproducts", "products"],
+  components:{Modal},
   data() {
     return {
       activetab: "1",
       searchItem: "",
+      showModal:false,
       items: [],
       allItems: [],
       filteredItems: [],
@@ -670,7 +673,7 @@ export default {
         order_note: this.order_note,
       });
       if (response.status == 200) {
-        this.$toast.success(`Order created successfully !!`);
+        this.showModal = true;
       } else {
         this.$toast.error(`Somthing went wrong, Please try again!`);
       }
