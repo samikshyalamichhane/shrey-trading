@@ -68,7 +68,7 @@ class OrderController extends Controller
             $order_data['order_id']=$order_id->id;
             $order_data['order_list']=$order_id->order_list;
             $order_data['amount']=$order_id->amount;
-            return response()->json(['status' => 'successful', 'data' => $order]);
+            return response()->json(['status' => 'successful', 'data' => $order_data]);
         }
     }
 
