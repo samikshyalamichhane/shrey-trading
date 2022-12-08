@@ -11,15 +11,12 @@
 <div class="page-content fade-in-up">
     <div class="col-sm-12">
         <div class="row newcartlist">
-            <div class="col-sm-8">
+            <div class="col-sm-12">
                 <div class="samebg">
-                    <div class="ibox-title">
-                        <x-product></x-product>
-                    </div>
-                    <all-products :myproducts="{{ json_encode($myProducts) }}" :products="{{ json_encode($products) }}"/>
+                    <my-products :myproducts="{{ json_encode($myProducts) }}" :products="{{ json_encode($products) }}"/>
                 </div>
             </div>
-            <div class="col-sm-4">
+            <!-- <div class="col-sm-4">
                 <div class="samebg">
                     <div class="page-content fade-in-up">
                         <div class="row">
@@ -111,7 +108,7 @@
 
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </div>
