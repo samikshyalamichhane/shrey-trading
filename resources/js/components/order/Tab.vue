@@ -341,7 +341,7 @@
                     <th>Quantity</th>
                     <th>Remove</th>
                   </tr>
-                  <tr v-if="(this.$store.state.cart.length < 1)">
+                  <tr v-if="this.$store.state.cart.length < 1">
                     <td colspan="8">You do not have any data yet.</td>
                   </tr>
                   <tr
@@ -367,7 +367,9 @@
                               placeholder="Enter Qty"
                               autocomplete="off"
                             />
-                            <span class="plus" @click="increment(cartItem)">+</span>
+                            <span class="plus" @click="increment(cartItem)"
+                              >+</span
+                            >
                           </div>
                         </div>
                       </div>
@@ -384,7 +386,7 @@
                   </tr>
                 </table>
               </div>
-              <hr />
+              <!-- <hr />
               <nav class="pagination m-pagination">
                 <a
                   class="button"
@@ -455,7 +457,7 @@
                     </a>
                   </li>
                 </ul>
-              </nav>
+              </nav> -->
             </div>
           </div>
           <div class="col-md-4">
@@ -483,25 +485,26 @@
       </div>
     </div>
   </div>
-  <Modal :showModal="showModal"/>
+  <Modal :showModal="showModal" :successData="successData" />
 </template>
-
 <script>
-import Modal from './Modal.vue'
+import Modal from "./Modal.vue";
+
 export default {
   props: ["myproducts", "products"],
-  components:{Modal},
+  components: { Modal },
+
   data() {
     return {
+      showModal: false,
+      showDialog: false,
+      successData: "",
       activetab: "1",
       searchItem: "",
-      showModal:false,
       items: [],
-      allItems: [],
+      cartItems: this.$store.state.cart,
       filteredItems: [],
-      filteredAllItems: [],
       paginatedItems: [],
-      paginatedAllItems: [],
       selectedItems: [],
       order_note: "",
       pagination: {
@@ -523,21 +526,21 @@ export default {
     activetab: function (value) {
       if (value === "1") {
         this.items = this.myproducts;
-        this.filteredItems = this.items;
+        // this.filteredItems = this.items;
         this.buildPagination();
         this.selectPage(1);
         this.clearSearchItem();
       }
       if (value === "2") {
         this.items = this.products;
-        this.filteredItems = this.items;
+        // this.filteredItems = this.items;
         this.buildPagination();
         this.selectPage(1);
         this.clearSearchItem();
       }
       if (value === "3") {
-        this.items = this.$store.state.cart;
-        this.filteredItems = this.items;
+        this.filteredItems = this.$store.state.cart;
+        // this.items = this.$store.state.cart;
         this.buildPagination();
         this.selectPage(1);
         this.clearSearchItem();
@@ -601,7 +604,6 @@ export default {
 
     selectPage(item) {
       this.pagination.currentPage = item;
-
       let start = 0;
       let end = 0;
       if (this.pagination.currentPage < this.pagination.range - 2) {
@@ -666,51 +668,86 @@ export default {
         this.$toast.error(`Please select item first!`);
       }
     },
-
     async submit() {
-      const response = await axios.post(`/carts/submit-order`, {
-        products: this.$store.state.cart,
-        order_note: this.order_note,
+      this.$swal({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, submit it!",
+      }).then(async (result) => {
+        const response = await axios.post(`/carts/submit-order`, {
+          products: this.$store.state.cart,
+          order_note: this.order_note,
+        });
+        if (response.status == 200) {
+          this.showModal = true;
+          this.successData = response.data.data;
+          this.$store.dispatch("clearCart");
+        } else {
+          this.$swal(
+            "Faild!",
+            "Something went wrong! Please try again.",
+            "error"
+          );
+        }
       });
-      if (response.status == 200) {
-        this.showModal = true;
-      } else {
-        this.$toast.error(`Somthing went wrong, Please try again!`);
-      }
     },
 
-    removeItem(item) {
-      this.$store.dispatch("removeFromCart", item);
+    removeItem(cartItem) {
+      let payload = cartItem;
+      this.$store.dispatch("removeFromCart", payload);
     },
   },
 };
 </script>
 
 <style>
-.number .minus, .number .plus {
-    width: 34px;
-    height: 34px;
-    background: #f2f2f2;
-    border-radius: 4px;
-    padding: 8px 5px 8px 5px;
-    border: 1px solid #ddd;
-    display: inline-block;
-    vertical-align: middle;
-    justify-content: center;
-    text-align: center;
+.dialog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.center {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+}
+
+.number .minus,
+.number .plus {
+  width: 34px;
+  height: 34px;
+  background: #f2f2f2;
+  border-radius: 4px;
+  padding: 8px 5px 8px 5px;
+  border: 1px solid #ddd;
+  display: inline-block;
+  vertical-align: middle;
+  justify-content: center;
+  text-align: center;
 }
 .number span {
-    cursor: pointer;
+  cursor: pointer;
 }
 .number input {
-    height: 34px;
-    width: 80px;
-    text-align: center;
-    font-size: 16px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    display: inline-block;
-    vertical-align: middle;
+  height: 34px;
+  width: 80px;
+  text-align: center;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  display: inline-block;
+  vertical-align: middle;
 }
 /* Style the tabs */
 .tabs {

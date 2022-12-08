@@ -9,12 +9,25 @@
   </transition>
   <transition name="pop" appear>
     <div class="modal" role="dialog" v-if="showModal">
-      <h1>Vue Transitions</h1>
-      <p>
-        The <code>&lt;transition&gt;</code> component in Vue can create
-        wonderful animated entrances and exits.
-      </p>
-      <button @click="showModal = false" class="button">Hide Modal</button>
+      <h1>Dear: {{successData}} </h1>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Code</th>
+            <th scope="col">Quantity</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(data,index) in successData.order_list" :key="index">
+            <th scope="row">{{ index + 1 }}</th>
+            <td>{{data.name}}</td>
+            <td>{{data.code}}</td>
+            <td>{{data.qty}}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </transition>
 </template>
@@ -22,7 +35,7 @@
   <script>
 export default {
   name: "modal",
-  props:['showModal'],
+  props: ["showModal", "successData"],
 };
 </script>
   
@@ -42,7 +55,7 @@ export default {
   padding: 2rem;
   border-radius: 1rem;
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
-  background: #FFF;
+  background: #fff;
   z-index: 999;
   transform: none;
 }
@@ -51,7 +64,7 @@ export default {
 }
 
 .modal-overlay {
-  content: '';
+  content: "";
   position: absolute;
   position: fixed;
   top: 0;
@@ -67,7 +80,7 @@ export default {
 /* ---------------------------------- */
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity .4s linear;
+  transition: opacity 0.4s linear;
 }
 
 .fade-enter,

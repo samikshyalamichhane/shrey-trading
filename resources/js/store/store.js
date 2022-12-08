@@ -12,6 +12,10 @@ export default createStore({
     removeFromCart: (context, items) => {
       context.commit("REMOVE_ITEMS", items);
     },
+    clearCart: (context) => {
+      console.log("clearing cart");
+      context.commit("CLEAR_STATE");
+    },
   },
   mutations: {
     //add product to cart ==================//
@@ -30,14 +34,15 @@ export default createStore({
     }
   },
 
-  REMOVE_ITEMS(state, items) {
-    console.log("clearing item");
-    let item = state.cart.indexOf(items);
+  REMOVE_ITEMS(state, payload) {
+    let item = state.cart.indexOf(payload);
     state.cart.splice(item, 1);
-    state.cartItemCount--;
-    if (state.cartItemCount == 0) {
-      state.vendorId = null;
-    }
+    this.commit("saveDataToLocalStorage");
+    console.log('deleted')
+  },
+
+  CLEAR_STATE(state) {
+    state.cart = [];
     this.commit("saveDataToLocalStorage");
   },
 

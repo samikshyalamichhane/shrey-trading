@@ -20,8 +20,8 @@
     },
     "dependencies": {
         "@incuca/vue3-toaster": "^1.1.1",
-        "jquery": "^3.6.1",
         "vue-axios": "^3.5.2",
+        "vue-sweetalert2": "^5.0.5",
         "vue-toastification": "^1.7.14",
         "vuex": "^4.0.2"
     }
