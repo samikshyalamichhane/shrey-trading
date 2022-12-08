@@ -15714,8 +15714,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         this.clearSearchItem();
       }
       if (value === "3") {
-        this.filteredItems = this.$store.state.cart;
-        // this.items = this.$store.state.cart;
         this.buildPagination();
         this.selectPage(1);
         this.clearSearchItem();
@@ -15883,6 +15881,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     removeItem: function removeItem(cartItem) {
       var payload = cartItem;
       this.$store.dispatch("removeFromCart", payload);
+    },
+    clearAll: function clearAll() {
+      this.$store.dispatch("clearCart");
     }
   }
 });
@@ -15942,7 +15943,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     appear: ""
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [$props.showModal ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", null, "Dear: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.successData), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_2, [_hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.successData.order_list, function (data, index) {
+      return [$props.showModal ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", null, "Dear: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.successData.client_id.name), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_2, [_hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.successData.order_list, function (data, index) {
         return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", {
           key: index
         }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(index + 1), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(data.name), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(data.code), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(data.qty), 1 /* TEXT */)]);
@@ -16168,13 +16169,14 @@ var _hoisted_75 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
   "class": "fa fa-times"
 }, null, -1 /* HOISTED */);
 var _hoisted_76 = [_hoisted_75];
-var _hoisted_77 = {
+var _hoisted_77 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("hr", null, null, -1 /* HOISTED */);
+var _hoisted_78 = {
   "class": "col-md-4"
 };
-var _hoisted_78 = {
+var _hoisted_79 = {
   "class": "form-group"
 };
-var _hoisted_79 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "Order Note")], -1 /* HOISTED */);
+var _hoisted_80 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "Order Note")], -1 /* HOISTED */);
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _this = this;
@@ -16405,13 +16407,18 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       },
       "class": "btn btn-danger btn-sm"
     }, _hoisted_76, 8 /* PROPS */, _hoisted_74)])]);
-  }), 128 /* KEYED_FRAGMENT */))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <hr />\r\n              <nav class=\"pagination m-pagination\">\r\n                <a\r\n                  class=\"button\"\r\n                  v-on:click=\"selectPage(this.pagination.currentPage - 1)\"\r\n                  v-bind:class=\"{\r\n                    'is-disabled':\r\n                      this.pagination.currentPage == this.pagination.items[0] ||\r\n                      this.pagination.items.length == 0,\r\n                  }\"\r\n                  >Previous</a\r\n                >\r\n                <a\r\n                  class=\"button\"\r\n                  v-on:click=\"selectPage(this.pagination.currentPage + 1)\"\r\n                  v-bind:class=\"{\r\n                    'is-disabled':\r\n                      this.pagination.currentPage ==\r\n                        this.pagination.items[\r\n                          this.pagination.items.length - 1\r\n                        ] || this.pagination.items.length == 0,\r\n                  }\"\r\n                  >Next page</a\r\n                >\r\n                <ul>\r\n                  <li>\r\n                    <a\r\n                      class=\"button\"\r\n                      v-on:click=\"selectPage(pagination.items[0])\"\r\n                      v-bind:class=\"{\r\n                        'is-disabled':\r\n                          this.pagination.currentPage ==\r\n                            this.pagination.items[0] ||\r\n                          this.pagination.items.length == 0,\r\n                      }\"\r\n                    >\r\n                      First\r\n                    </a>\r\n                  </li>\r\n                  <li class=\"is-space\"></li>\r\n                  <li v-for=\"item in pagination.filteredItems\">\r\n                    <a\r\n                      class=\"button\"\r\n                      v-on:click=\"selectPage(item)\"\r\n                      v-bind:class=\"{\r\n                        'is-info': item == pagination.currentPage,\r\n                      }\"\r\n                      >{{ item | numeral }}</a\r\n                    >\r\n                  </li>\r\n                  <li class=\"is-space\"></li>\r\n                  <li>\r\n                    <a\r\n                      class=\"button\"\r\n                      v-on:click=\"\r\n                        selectPage(\r\n                          pagination.items[pagination.items.length - 1]\r\n                        )\r\n                      \"\r\n                      v-bind:class=\"{\r\n                        'is-disabled':\r\n                          this.pagination.currentPage ==\r\n                            this.pagination.items[\r\n                              this.pagination.items.length - 1\r\n                            ] || this.pagination.items.length == 0,\r\n                      }\"\r\n                    >\r\n                      Last\r\n                    </a>\r\n                  </li>\r\n                </ul>\r\n              </nav> ")])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_77, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_78, [_hoisted_79, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("textarea", {
+  }), 128 /* KEYED_FRAGMENT */))])]), _hoisted_77, this.$store.state.cart.length > 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", {
+    key: 0,
+    onClick: _cache[18] || (_cache[18] = function () {
+      return $options.clearAll && $options.clearAll.apply($options, arguments);
+    })
+  }, "Clear Cart")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_78, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_79, [_hoisted_80, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("textarea", {
     name: "order_note",
     id: "order_note",
     rows: "5",
     placeholder: "Order Note Here",
     "class": "form-control",
-    "onUpdate:modelValue": _cache[18] || (_cache[18] = function ($event) {
+    "onUpdate:modelValue": _cache[19] || (_cache[19] = function ($event) {
       return $data.order_note = $event;
     }),
     style: {
@@ -16419,7 +16426,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     }
   }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.order_note]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     "class": "btn btn-sm btn-success",
-    onClick: _cache[19] || (_cache[19] = function () {
+    onClick: _cache[20] || (_cache[20] = function () {
       return $options.submit && $options.submit.apply($options, arguments);
     }),
     type: "submit"
@@ -16546,8 +16553,10 @@ var cart = window.localStorage.getItem("cart");
       }
     },
     REMOVE_ITEMS: function REMOVE_ITEMS(state, payload) {
-      var item = state.cart.indexOf(payload);
-      state.cart.splice(item, 1);
+      state.cart.splice(state.cart.indexOf(payload), 1);
+      // let item = state.cart.indexOf(payload);
+      // state.cart.splice(item, 1);
+
       this.commit("saveDataToLocalStorage");
       console.log('deleted');
     },

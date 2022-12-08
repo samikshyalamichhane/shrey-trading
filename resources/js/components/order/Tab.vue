@@ -386,78 +386,8 @@
                   </tr>
                 </table>
               </div>
-              <!-- <hr />
-              <nav class="pagination m-pagination">
-                <a
-                  class="button"
-                  v-on:click="selectPage(this.pagination.currentPage - 1)"
-                  v-bind:class="{
-                    'is-disabled':
-                      this.pagination.currentPage == this.pagination.items[0] ||
-                      this.pagination.items.length == 0,
-                  }"
-                  >Previous</a
-                >
-                <a
-                  class="button"
-                  v-on:click="selectPage(this.pagination.currentPage + 1)"
-                  v-bind:class="{
-                    'is-disabled':
-                      this.pagination.currentPage ==
-                        this.pagination.items[
-                          this.pagination.items.length - 1
-                        ] || this.pagination.items.length == 0,
-                  }"
-                  >Next page</a
-                >
-                <ul>
-                  <li>
-                    <a
-                      class="button"
-                      v-on:click="selectPage(pagination.items[0])"
-                      v-bind:class="{
-                        'is-disabled':
-                          this.pagination.currentPage ==
-                            this.pagination.items[0] ||
-                          this.pagination.items.length == 0,
-                      }"
-                    >
-                      First
-                    </a>
-                  </li>
-                  <li class="is-space"></li>
-                  <li v-for="item in pagination.filteredItems">
-                    <a
-                      class="button"
-                      v-on:click="selectPage(item)"
-                      v-bind:class="{
-                        'is-info': item == pagination.currentPage,
-                      }"
-                      >{{ item | numeral }}</a
-                    >
-                  </li>
-                  <li class="is-space"></li>
-                  <li>
-                    <a
-                      class="button"
-                      v-on:click="
-                        selectPage(
-                          pagination.items[pagination.items.length - 1]
-                        )
-                      "
-                      v-bind:class="{
-                        'is-disabled':
-                          this.pagination.currentPage ==
-                            this.pagination.items[
-                              this.pagination.items.length - 1
-                            ] || this.pagination.items.length == 0,
-                      }"
-                    >
-                      Last
-                    </a>
-                  </li>
-                </ul>
-              </nav> -->
+              <hr />
+             <button @click="clearAll" v-if="(this.$store.state.cart.length > 0)">Clear Cart</button>
             </div>
           </div>
           <div class="col-md-4">
@@ -539,8 +469,6 @@ export default {
         this.clearSearchItem();
       }
       if (value === "3") {
-        this.filteredItems = this.$store.state.cart;
-        // this.items = this.$store.state.cart;
         this.buildPagination();
         this.selectPage(1);
         this.clearSearchItem();
@@ -700,6 +628,9 @@ export default {
       let payload = cartItem;
       this.$store.dispatch("removeFromCart", payload);
     },
+    clearAll(){
+      this.$store.dispatch("clearCart");
+    }
   },
 };
 </script>

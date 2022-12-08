@@ -35,8 +35,10 @@ export default createStore({
   },
 
   REMOVE_ITEMS(state, payload) {
-    let item = state.cart.indexOf(payload);
-    state.cart.splice(item, 1);
+    state.cart.splice(state.cart.indexOf(payload),1);
+    // let item = state.cart.indexOf(payload);
+    // state.cart.splice(item, 1);
+    
     this.commit("saveDataToLocalStorage");
     console.log('deleted')
   },

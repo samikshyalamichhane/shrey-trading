@@ -9,7 +9,7 @@
   </transition>
   <transition name="pop" appear>
     <div class="modal" role="dialog" v-if="showModal">
-      <h1>Dear: {{successData}} </h1>
+      <h1>Dear: {{successData.client_id.name}} </h1>
       <table class="table">
         <thead>
           <tr>

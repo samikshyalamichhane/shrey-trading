@@ -10,105 +10,82 @@
 @if(auth()->guard('client')->user())
 <div class="page-content fade-in-up">
     <div class="col-sm-12">
+        <div class="row">
+        @if(auth()->user())
+            <div class="col-12">
+                <div class="card text-white bg-primary" style="margin-bottom:2rem">
+                    <div class="card-body card-body pb-0 mb-4 d-flex justify-content-between align-items-start">
+                        <div>
+                            <div class="text-value-lg" style="font-size: 1.3125rem;">{{count($users)}}</div>
+                            <div><a href="{{route('users.index')}}" target="_blank" style="color:white">
+                            Total Users</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.col-->
+            <div class="col-12">
+                <div class="card text-white bg-info" style="margin-bottom:2rem">
+                    <div class="card-body card-body pb-0 mb-4 d-flex justify-content-between align-items-start">
+                        <div>
+                            <div class="text-value-lg" style="font-size: 1.3125rem;">{{count($clients)}}</div>
+                            <div><a href="" target="_blank" style="color:white">Total Clients</a></div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            @endif
+            @if(auth()->guard('client')->user())
+            <!-- /.col-->
+            <div class="col-md-4">
+                <div class="card text-white bg-info" style="margin-bottom:2rem">
+                    <div class="card-body card-body pb-0 mb-4 d-flex justify-content-between align-items-start">
+                        <div>
+                            <div class="text-value-lg" style="font-size: 1.3125rem;">{{count($myProducts)}}</div>
+                            <div>My Products</div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            @endif
+            @if(auth()->guard('client')->user() || auth()->user())
+            <div class="col-md-4">
+                <div class="card text-white bg-primary" style="margin-bottom:2rem">
+                    <div class="card-body card-body pb-0 mb-4 d-flex justify-content-between align-items-start">
+                        <div>
+                            <div class="text-value-lg" style="font-size: 1.3125rem;">{{count($products)}}</div>
+                            <div><a href="{{route('products.index')}}" target="_blank" style="color:white">Total Products</a></div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            @endif
+            @if(auth()->guard('client')->user())
+            <div class="col-md-4">
+                <div class="card text-white bg-warning" style="margin-bottom:2rem">
+                    <div class="card-body card-body pb-0 mb-4 d-flex justify-content-between align-items-start">
+                        <div>
+                            <div class="text-value-lg" style="font-size: 1.3125rem;">{{count($orders)}}</div>
+                            <div><a href="{{route('orders.index')}}" target="_blank" style="color:white">Total Orders</a></div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            @endif
+        </div>
         <div class="row newcartlist">
             <div class="col-sm-12">
                 <div class="samebg">
                     <my-products :myproducts="{{ json_encode($myProducts) }}" :products="{{ json_encode($products) }}"/>
                 </div>
             </div>
-            <!-- <div class="col-sm-4">
-                <div class="samebg">
-                    <div class="page-content fade-in-up">
-                        <div class="row">
-                            @if(auth()->user())
-                            <div class="col-12">
-                                <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Total Users: {{count($users)}}</h5>
-                                    </div>
-                                    <div class="card-footer bg-transparent">
-                                        <div class="stats">
-                                            <a href="{{route('users.index')}}" target="_blank" style="color:white">
-                                                <i class="fas fa-sync-alt text-white"></i>
-                                                <span> Go to Users List</span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="card text-white bg-danger mb-3" style="max-width: 18rem;">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Total Clients: {{count($clients)}}</h5>
-                                    </div>
-                                    <div class="card-footer bg-transparent">
-                                        <div class="stats">
-                                            <a href="" target="_blank" style="color:white">
-                                                <i class="fas fa-sync-alt text-white"></i>
-                                                <span> Go to Clients List</span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            @endif
-                            @if(auth()->guard('client')->user())
-                            <div class="col-md-6">
-                                <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
-                                    <div class="card-body">
-                                        <h5 class="card-title">My Products: {{count($myProducts)}} </h5>
-                                    </div>
-                                    <div class="card-footer bg-transparent">
-                                        <div class="stats">
-                                            <a href="{{route('products.index')}}" target="_blank" style="color:white">
-                                                <i class="fas fa-sync-alt text-white"></i>
-                                                <span> Go to Products List</span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            @endif
-                            @if(auth()->guard('client')->user() || auth()->user())
-                            <div class="col-md-6">
-                                <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Total Products: {{count($products)}}</h5>
-                                    </div>
-                                    <div class="card-footer bg-transparent">
-                                        <div class="stats">
-                                            <a href="{{route('products.index')}}" target="_blank" style="color:white">
-                                                <i class="fas fa-sync-alt text-white"></i>
-                                                <span> Go to Products List</span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            @endif
-                            @if(auth()->guard('client')->user())
-                            <div class="col-md-6">
-                                <div class="card text-white bg-secondary mb-3" style="max-width: 18rem;">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Total Orders: {{count($orders)}}</h5>
-                                    </div>
-                                    <div class="card-footer bg-transparent">
-                                        <div class="stats">
-                                            <a href="{{route('orders.index')}}" target="_blank" style="color:white">
-                                                <i class="fas fa-sync-alt text-white"></i>
-                                                <span> Go to Orders List</span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            @endif
-                        </div>
-
-
-                    </div>
-                </div>
-            </div> -->
         </div>
     </div>
 </div>
