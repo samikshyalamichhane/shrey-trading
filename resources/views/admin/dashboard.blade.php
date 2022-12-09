@@ -13,70 +13,73 @@
         <div class="row">
         @if(auth()->user())
             <div class="col-12">
+            <a href="{{route('users.index')}}" target="_blank" style="color:white">
                 <div class="card text-white bg-primary" style="margin-bottom:2rem">
                     <div class="card-body card-body pb-0 mb-4 d-flex justify-content-between align-items-start">
                         <div>
                             <div class="text-value-lg" style="font-size: 1.3125rem;">{{count($users)}}</div>
-                            <div><a href="{{route('users.index')}}" target="_blank" style="color:white">
-                            Total Users</a></div>
+                            <div>
+                            Total Users</div>
                         </div>
                     </div>
                 </div>
+                </a>
             </div>
             <!-- /.col-->
             <div class="col-12">
+            <a href="{{route('clients.index')}}" target="_blank" style="color:white">
                 <div class="card text-white bg-info" style="margin-bottom:2rem">
                     <div class="card-body card-body pb-0 mb-4 d-flex justify-content-between align-items-start">
                         <div>
                             <div class="text-value-lg" style="font-size: 1.3125rem;">{{count($clients)}}</div>
-                            <div><a href="" target="_blank" style="color:white">Total Clients</a></div>
+                            <div>Total Clients</div>
                         </div>
-
                     </div>
                 </div>
+                </a>
             </div>
             @endif
             @if(auth()->guard('client')->user())
             <!-- /.col-->
-            <div class="col-md-4">
+            <div class="col-md-4"> 
+            <a href="{{route('products.index')}}" target="_blank" style="color:white">
                 <div class="card text-white bg-info" style="margin-bottom:2rem">
                     <div class="card-body card-body pb-0 mb-4 d-flex justify-content-between align-items-start">
                         <div>
                             <div class="text-value-lg" style="font-size: 1.3125rem;">{{count($myProducts)}}</div>
                             <div>My Products</div>
                         </div>
-
                     </div>
-
                 </div>
+            </a>
             </div>
             @endif
             @if(auth()->guard('client')->user() || auth()->user())
             <div class="col-md-4">
+            <a href="{{route('products.index')}}" target="_blank" style="color:white">
                 <div class="card text-white bg-primary" style="margin-bottom:2rem">
                     <div class="card-body card-body pb-0 mb-4 d-flex justify-content-between align-items-start">
                         <div>
                             <div class="text-value-lg" style="font-size: 1.3125rem;">{{count($products)}}</div>
-                            <div><a href="{{route('products.index')}}" target="_blank" style="color:white">Total Products</a></div>
+                            <div>Total Products</div>
                         </div>
-
                     </div>
-
                 </div>
+                </a>
             </div>
             @endif
             @if(auth()->guard('client')->user())
             <div class="col-md-4">
+            <a href="{{route('orders.index')}}" target="_blank" style="color:white">
                 <div class="card text-white bg-warning" style="margin-bottom:2rem">
                     <div class="card-body card-body pb-0 mb-4 d-flex justify-content-between align-items-start">
                         <div>
                             <div class="text-value-lg" style="font-size: 1.3125rem;">{{count($orders)}}</div>
-                            <div><a href="{{route('orders.index')}}" target="_blank" style="color:white">Total Orders</a></div>
+                            <div>Total Orders</div>
                         </div>
-
                     </div>
-
                 </div>
+                </a>
             </div>
             @endif
         </div>
@@ -146,7 +149,6 @@
 @endsection
 @section('scripts')
 <script src="{{mix('js/app.js')}}"></script>
-
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="{{asset('/assets/admin/vendors/DataTables/datatables.min.js')}}" type="text/javascript"></script>
 <script type="text/javascript">

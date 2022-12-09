@@ -68,7 +68,11 @@ class OrderController extends Controller
             $order_data['order_id']=$order_id->id;
             $order_data['order_list']=$order_id->order_list;
             $order_data['amount']=$order_id->amount;
-            return response()->json(['status' => 'successful', 'data' => $order_data]);
+            $order = Order::with('order_list')->where('id',$order_id->id)->first();
+            $order_list = OrderList::with('product_info')->where('order_id',$order->id)->get();
+            $client = auth()->guard('client')->user();
+            return response()->json(['status' => 'successful', 'data' => $order_data,'order_list' => $order_list,
+        'client'=>$client]);
         }
     }
 

@@ -16,7 +16,7 @@
         v-bind:class="[activetab === '3' ? 'active' : '']"
         >Recently added Products</a
       >
-      <a>
+      <a v-if="activetab !== '3'">
         <div class="box m-form">
           <div class="control is-grouped">
             <p class="control is-expanded">
@@ -387,7 +387,12 @@
                 </table>
               </div>
               <hr />
-             <button @click="clearAll" v-if="(this.$store.state.cart.length > 0)">Clear Cart</button>
+              <button
+                @click="clearAll"
+                v-if="this.$store.state.cart.length > 0"
+              >
+                Clear Cart
+              </button>
             </div>
           </div>
           <div class="col-md-4">
@@ -415,10 +420,10 @@
       </div>
     </div>
   </div>
-  <Modal :showModal="showModal" :successData="successData" />
+  <Modal ref="modal" :showModal="showModal" :successData="successData" />
 </template>
 <script>
-import Modal from "./Modal.vue";
+import Modal from "./Modal1.vue";
 
 export default {
   props: ["myproducts", "products"],
@@ -597,40 +602,56 @@ export default {
       }
     },
     async submit() {
-      this.$swal({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
-        type: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, submit it!",
-      }).then(async (result) => {
-        const response = await axios.post(`/carts/submit-order`, {
-          products: this.$store.state.cart,
-          order_note: this.order_note,
+      if (this.$store.state.cart.length > 0) {
+        this.$swal({
+          title: "Are you sure?",
+          text: "You won't be able to revert this!",
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, submit it!",
+        }).then(async (result) => {
+          if (result == 'isConfirm') {
+            let loader = this.$loading.show({
+              isFullPage: true,
+              loader: "dots",
+              opacity: 0.7,
+            });
+            const response = await axios.post(`/carts/submit-order`, {
+              products: this.$store.state.cart,
+              order_note: this.order_note,
+            });
+            if (response.status == 200) {
+              loader.hide();
+              this.showModal = true;
+              this.successData = response.data;
+              this.$store.dispatch("clearCart");
+              this.filteredItems.forEach((element) => {
+                element.qty = 0;
+              });
+            } else {
+              loader.hide();
+              this.$swal(
+                "Faild!",
+                "Something went wrong! Please try again.",
+                "error"
+              );
+            }
+          }
         });
-        if (response.status == 200) {
-          this.showModal = true;
-          this.successData = response.data.data;
-          this.$store.dispatch("clearCart");
-        } else {
-          this.$swal(
-            "Faild!",
-            "Something went wrong! Please try again.",
-            "error"
-          );
-        }
-      });
+      } else {
+        this.$swal("Faild!", "Please add some quantity first.", "error");
+      }
     },
 
     removeItem(cartItem) {
       let payload = cartItem;
       this.$store.dispatch("removeFromCart", payload);
     },
-    clearAll(){
+    clearAll() {
       this.$store.dispatch("clearCart");
-    }
+    },
   },
 };
 </script>
