@@ -1,0 +1,103 @@
+
+.brand {
+	font-size: 44px;
+    text-align: center;
+    margin: 20px 0;
+}
+
+.content {
+	max-width: 400px;
+	margin:0 auto;
+}
+.content form {
+	padding: 15px 20px 20px 20px;
+	background-color: #fff;
+}
+.login-header {margin:10px 0 20px 0;}
+.login-img {
+	display: inline-block;
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    line-height: 56px;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    border: 2px solid #6bd6db;
+    font-size: 28px;
+    color: #2CC4CB;
+}
+.login-header a{
+	width: 50%;
+	text-align: center;
+	color: #fff;
+	padding: 12px 0;
+	background-color: #c7cccf;
+}
+.login-header a.active {
+    background-color: #fff;
+    color: inherit;
+}
+.login-title {
+	margin-bottom: 25px;
+	margin-top: 20px;
+	text-align: center;
+}
+.social-auth-hr {
+	text-align: center;
+	height: 10px;
+    margin-bottom: 21px;
+    border-bottom: 1px solid #ccc;
+}
+.social-auth-hr span {
+	background: #fff;
+    padding: 0 10px;
+}
+.login-footer {
+	padding: 15px;
+	background-color: #ebedee;
+	text-align: center;
+}
+/*New Css Added*/
+.login-bg .content{
+    background:#fff!important;
+    padding:20px;
+    margin-top:20px;
+}
+.login-bg h2{
+    font-weight: 700;
+font-size: 24px;
+margin-top:0;
+}
+.login-bg input{
+    height:40px;
+    background:#fcfdfe;
+    border-radius:8px;
+}
+.login-bg::-webkit-input-placeholder { /* Edge */
+  color: #4B506D;
+  font-weight: 400;
+font-size: 14px;
+}
+
+.login-bg:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: #4B506D;
+  font-weight: 400;
+font-size: 14px;
+}
+
+.login-bg::placeholder {
+  color: #4B506D;
+  font-weight: 400;
+font-size: 14px;
+}
+.login-bg .btn.btn-info.btn-block{
+    height:50px;
+    background:#f1595a;
+    border:1px solid #f1595a;
+    font-weight: 600;
+    font-size: 14px;
+    color:#fff;
+    border-radius:8px;
+
+    
+}
