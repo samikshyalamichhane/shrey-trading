@@ -7,7 +7,7 @@
           <h4 class="modal-title">Change Order Status</h4>
         </div>
         <div class="modal-body">
-          <form action="" method="post">
+          <form action="{{route('updateStatus')}}" method="post">
             {{csrf_field()}}
             <input type="hidden" name="order_id" id="title" value=""/>
             <div class="form-group">

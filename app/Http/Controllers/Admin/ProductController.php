@@ -25,7 +25,11 @@ class ProductController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'code' => 'required',
+<<<<<<< HEAD
+            'price' => 'nullable',
+=======
             'price' => 'required',
+>>>>>>> fbf38a4d15d2cb00e738366035bab058183a3cf6
         ]);
         try {
             $product = new Product();
@@ -57,7 +61,11 @@ class ProductController extends Controller
         $this->validate($request, [
             'name' => 'required|string|min:6|max:20',
             'code' => 'required',
+<<<<<<< HEAD
+            'price' => 'nullable',
+=======
             'price' => 'required',
+>>>>>>> fbf38a4d15d2cb00e738366035bab058183a3cf6
         ]);
         try {
             $product->name = $request->name;

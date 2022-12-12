@@ -54,7 +54,7 @@
                                                 <td>{{@$order_list->product_info->name}}</td>
                                                 <td>{{@$order_list->product_info->code}}</td>
                                                 <td>{{@$order_list->quantity}}</td>
-                                                <td>Rs.{{@$order_list['amount']}}</td>
+                                                <td>Rs.{{number_format(@$order_list['amount'], 2)}}</td>
                                             </tr>
                                             @endforeach
                                             <tr>

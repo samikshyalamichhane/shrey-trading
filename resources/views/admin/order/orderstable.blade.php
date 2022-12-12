@@ -3,9 +3,9 @@
         <tr>
             <th>SN</th>
             <th>Product Name</th>
-            <th>Ordered By</th>
-            <th>Code</th>
+            <!--<th>Ordered By</th>-->
             <th>Quantity</th>
+            <th>Code</th>
             <th>Total amount</th>
         </tr>
     </thead>
@@ -16,20 +16,20 @@
         <tr>
             <td>{{$loop->iteration}}</td>
             <td>{{@$order_list->product_info->name}}</td>
-            <td>{{@$order->client->name}}</td>
-            <td>{{@$order_list->product_info->code}}</td>
+            <!--<td>{{@$order->client->name}}</td>-->
             <td>{{@$order_list['quantity']}}</td>
+            <td>{{@$order_list->product_info->code}}</td>
             <td>{{@$order_list['amount']}}</td>
         </tr>
         @endforeach
         <tr>
-            <td colspan="4">
+            <td colspan="2">
                 <b> Total Quantity</b>
             </td>
             <td>{{$order->quantity}}</td>
         </tr>
         <tr>
-            <td colspan="5">
+            <td colspan="4">
                 <b> Total Amount</b>
             </td>
             <td>Rs.{{number_format(@$order->amount, 2)}}</td>

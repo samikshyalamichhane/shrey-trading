@@ -15,6 +15,7 @@
             <div class="ibox-title">All Products</div>
             <div>
                 <a class="btn btn-info btn-md" href="{{route('products.create')}}">New Product</a>
+                <a class="btn btn-success btn-md" href="{{route('addExcell')}}">Add Excel</a>
             </div>
             
         </div>

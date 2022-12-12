@@ -146,8 +146,17 @@ pre code {
     -webkit-transition: all ease-in-out .15s;
     -o-transition: all ease-in-out .15s;
     transition: all ease-in-out .15s;
+<<<<<<< HEAD
     position: relative;
     cursor: pointer;
+=======
+<<<<<<< HEAD
+    position: relative;
+    cursor: pointer;
+=======
+    position: relative
+>>>>>>> fbf38a4d15d2cb00e738366035bab058183a3cf6
+>>>>>>> 0cff4e9744e3be67853237211d4b84c3d8cfb5c5
 }
 
 .btn.active,

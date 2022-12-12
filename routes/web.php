@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminLoginController;
 use App\Http\Controllers\Admin\ClientController;
+use App\Http\Controllers\Admin\ExcelController;
 use App\Http\Controllers\Admin\ExportController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
@@ -21,6 +22,8 @@ Route::group(['prefix'=> 'admin'], function(){
 Route::resource('/users',UserController::class);
 Route::resource('/clients',ClientController::class);
 Route::resource('/products',ProductController::class);
+Route::get('add-excel',[ExcelController::class,'addExcell'])->name('addExcell');
+Route::post('save-excel',[ExcelController::class,'saveExcel'])->name('saveExcel');
 });
 
 Route::group(['prefix' => 'client'], function () {
