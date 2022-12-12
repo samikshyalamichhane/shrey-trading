@@ -86,7 +86,8 @@
         <div class="row newcartlist">
             <div class="col-sm-12">
                 <div class="samebg">
-                    <my-products :myproducts="{{ json_encode($myProducts) }}" :products="{{ json_encode($products) }}"/>
+                    <my-products :myproducts="{{ json_encode($myProducts) }}" :products="{{ json_encode($products) }}
+                    " :client="client"/>
                 </div>
             </div>
         </div>

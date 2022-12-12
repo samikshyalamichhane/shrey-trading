@@ -8,8 +8,10 @@ import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import VueLoading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
+import helpers from "./helper";
 
 const app = createApp({})
+app.config.globalProperties.$helpers = helpers
 app.use(Toaster)
 app.use(store)
 app.use(VueSweetalert2)
