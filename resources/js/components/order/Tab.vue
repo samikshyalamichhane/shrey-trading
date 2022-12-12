@@ -1,7 +1,5 @@
 <template>
   <div id="tabs" class="container">
-    <div class="info" v-if="this.$store.state.cart.length > 0">
-      Note : You have {{this.$store.state.cart.length}} products in your whishlist! Please check Recently Added Products.</div>
     <div class="tabs">
       <a
         v-on:click="activetab = '1'"
