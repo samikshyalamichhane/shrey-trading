@@ -1,530 +1,410 @@
 <template>
-  <div id="tabs" class="container">
-    <div class="tabs">
-      <a
-        v-on:click="activetab = '1'"
-        v-bind:class="[activetab === '1' ? 'active' : '']"
-        >My Products</a
-      >
-      <a
-        v-on:click="activetab = '2'"
-        v-bind:class="[activetab === '2' ? 'active' : '']"
-        >All Products</a
-      >
-      <a
-        v-on:click="activetab = '3'"
-        v-bind:class="[activetab === '3' ? 'active' : '']"
-        >Cart
-        <b class="cart-badge">{{ this.$store.state.cartItemCount }}</b>
-      </a>
-      <a v-if="activetab !== '3'">
-        <div class="box m-form">
-          <div class="control is-grouped">
-            <p class="control is-expanded">
-              <input
-                class="input"
-                v-model="searchItem"
-                v-on:keyup="searchInTheList(searchItem)"
-                type="text"
-                placeholder="Search ...."
-              />
-              <span class="help is-dark"
-                ><strong>{{ filteredItems.length | numeral }}</strong> of
-                {{ items.length | numeral }} product found</span
-              >
-            </p>
-
-            <p class="control">
-              <a
-                class="button is-info"
-                v-on:click="clearSearchItem"
-                v-bind:class="{ 'is-disabled': searchItem == '' }"
-              >
-                Clear
-              </a>
-            </p>
-          </div>
-        </div></a
-      >
-    </div>
-
-    <div class="content">
-      <div v-if="activetab === '1'" class="tabcontent">
-        <div class="row">
-          <div class="col-md-8 ibox-body">
-            <div class="container" style="overflow-x: auto">
-              <div class="m-table">
-                <table class="table is-bordered is-striped is-narrow">
-                  <tr>
-                    <th class="m-table-index">#</th>
-                    <th>Product</th>
-                    <th>Code</th>
-                    <th>Quantity</th>
-                  </tr>
-                  <tr v-if="!paginatedItems">
-                    <td colspan="8">You do not have any data yet.</td>
-                  </tr>
-                  <tr v-for="(item, index) in paginatedItems" :key="index">
-                    <td>{{ index + 1 }}</td>
-                    <td>{{ item.name }}</td>
-                    <td>{{ item.code }}</td>
-                    <td>
-                      <div class="cart_list">
-                        <div class="qty-wrapper">
-                          <div class="number">
-                            <span class="minus" @click="decrement(item)"
-                              >-</span
-                            >
-                            <input
-                              type="text"
-                              class="quantity"
-                              :id="item.id"
-                              oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*?)\..*/g, '$1');"
-                              v-model.number="item.qty"
-                              placeholder="Enter Qty"
-                              autocomplete="off"
-                            />
-                            <span class="plus" @click="increment(item)">+</span>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                </table>
-              </div>
-              <hr />
-              <nav class="pagination m-pagination">
-                <a
-                  class="button"
-                  v-on:click="selectPage(this.pagination.currentPage - 1)"
-                  v-bind:class="{
-                    'is-disabled':
-                      this.pagination.currentPage == this.pagination.items[0] ||
-                      this.pagination.items.length == 0,
-                  }"
-                  >Previous</a
-                >
-                <a
-                  class="button"
-                  v-on:click="selectPage(this.pagination.currentPage + 1)"
-                  v-bind:class="{
-                    'is-disabled':
-                      this.pagination.currentPage ==
-                        this.pagination.items[
-                          this.pagination.items.length - 1
-                        ] || this.pagination.items.length == 0,
-                  }"
-                  >Next page</a
-                >
-                <ul>
-                  <li>
-                    <a
-                      class="button"
-                      v-on:click="selectPage(pagination.items[0])"
-                      v-bind:class="{
-                        'is-disabled':
-                          this.pagination.currentPage ==
-                            this.pagination.items[0] ||
-                          this.pagination.items.length == 0,
-                      }"
-                    >
-                      First
-                    </a>
-                  </li>
-                  <li class="is-space"></li>
-                  <li v-for="item in pagination.filteredItems">
-                    <a
-                      class="button"
-                      v-on:click="selectPage(item)"
-                      v-bind:class="{
-                        'is-info': item == pagination.currentPage,
-                      }"
-                      >{{ item | numeral }}</a
-                    >
-                  </li>
-                  <li class="is-space"></li>
-                  <li>
-                    <a
-                      class="button"
-                      v-on:click="
-                        selectPage(
-                          pagination.items[pagination.items.length - 1]
-                        )
-                      "
-                      v-bind:class="{
-                        'is-disabled':
-                          this.pagination.currentPage ==
-                            this.pagination.items[
-                              this.pagination.items.length - 1
-                            ] || this.pagination.items.length == 0,
-                      }"
-                    >
-                      Last
-                    </a>
-                  </li>
-                </ul>
-              </nav>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="form-group">
-              <label><strong>Order Note</strong></label>
-              <textarea
-                name="order_note"
-                id="order_note"
-                rows="5"
-                placeholder="Order Note Here"
-                class="form-control"
-                v-model="order_note"
-                style="resize: none"
-              ></textarea>
-            </div>
-            <button
-              class="btn btn-sm btn-success"
-              @click="submit"
-              type="submit"
+  <div class="row newcartlist">
+    <div class="col-sm-12" id="table-tabs">
+      <div class="samebg">
+        <div id="tabs" class="container">
+          <div class="tabs">
+            <a
+              v-on:click="activetab = '1'"
+              v-bind:class="[activetab === '1' ? 'active' : '']"
+              >My Products</a
             >
-              Submit Order
-            </button>
-          </div>
-        </div>
-      </div>
-      <div v-if="activetab === '2'" class="tabcontent">
-        <div class="row">
-          <div class="col-md-8 ibox-body">
-            <div class="container" style="overflow-x: auto">
-              <div class="m-table">
-                <table class="table is-bordered is-striped is-narrow">
-                  <tr>
-                    <th class="m-table-index">#</th>
-                    <th>Product</th>
-                    <th>Code</th>
-                    <th>Quantity</th>
-                  </tr>
-                  <tr v-if="!paginatedItems">
-                    <td colspan="8">You do not have any data yet.</td>
-                  </tr>
-                  <tr v-for="(item, index) in paginatedItems" :key="index">
-                    <td>{{ index + 1 }}</td>
-                    <td>{{ item.name }}</td>
-                    <td>{{ item.code }}</td>
-                    <td>
-                      <div class="cart_list">
-                        <div class="qty-wrapper">
-                          <div class="number">
-                            <span class="minus" @click="decrement(item)"
-                              >-</span
-                            >
-                            <input
-                              type="text"
-                              class="quantity"
-                              :id="item.id"
-                              oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*?)\..*/g, '$1');"
-                              v-model.number="item.qty"
-                              placeholder="Enter Qty"
-                              autocomplete="off"
-                            />
-                            <span class="plus" @click="increment(item)">+</span>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                </table>
-              </div>
-              <hr />
-              <nav class="pagination m-pagination">
-                <a
-                  class="button"
-                  v-on:click="selectPage(this.pagination.currentPage - 1)"
-                  v-bind:class="{
-                    'is-disabled':
-                      this.pagination.currentPage == this.pagination.items[0] ||
-                      this.pagination.items.length == 0,
-                  }"
-                  >Previous</a
-                >
-                <a
-                  class="button"
-                  v-on:click="selectPage(this.pagination.currentPage + 1)"
-                  v-bind:class="{
-                    'is-disabled':
-                      this.pagination.currentPage ==
-                        this.pagination.items[
-                          this.pagination.items.length - 1
-                        ] || this.pagination.items.length == 0,
-                  }"
-                  >Next page</a
-                >
-                <ul>
-                  <li>
-                    <a
-                      class="button"
-                      v-on:click="selectPage(pagination.items[0])"
-                      v-bind:class="{
-                        'is-disabled':
-                          this.pagination.currentPage ==
-                            this.pagination.items[0] ||
-                          this.pagination.items.length == 0,
-                      }"
-                    >
-                      First
-                    </a>
-                  </li>
-                  <li class="is-space"></li>
-                  <li v-for="item in pagination.filteredItems">
-                    <a
-                      class="button"
-                      v-on:click="selectPage(item)"
-                      v-bind:class="{
-                        'is-info': item == pagination.currentPage,
-                      }"
-                      >{{ item | numeral }}</a
-                    >
-                  </li>
-                  <li class="is-space"></li>
-                  <li>
-                    <a
-                      class="button"
-                      v-on:click="
-                        selectPage(
-                          pagination.items[pagination.items.length - 1]
-                        )
-                      "
-                      v-bind:class="{
-                        'is-disabled':
-                          this.pagination.currentPage ==
-                            this.pagination.items[
-                              this.pagination.items.length - 1
-                            ] || this.pagination.items.length == 0,
-                      }"
-                    >
-                      Last
-                    </a>
-                  </li>
-                </ul>
-              </nav>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="form-group">
-              <label><strong>Order Note</strong></label>
-              <textarea
-                name="order_note"
-                id="order_note"
-                rows="5"
-                placeholder="Order Note Here"
-                class="form-control"
-                v-model="order_note"
-                style="resize: none"
-              ></textarea>
-            </div>
-            <button
-              class="btn btn-sm btn-success"
-              @click="submit"
-              type="submit"
+            <a
+              v-on:click="activetab = '2'"
+              v-bind:class="[activetab === '2' ? 'active' : '']"
+              >All Products</a
             >
-              Submit Order
-            </button>
-          </div>
-        </div>
-      </div>
-      <div v-if="activetab === '3'" class="tabcontent">
-        <div class="row">
-          <div class="col-md-8 ibox-body">
-            <div class="container" style="overflow-x: auto">
-              <div class="m-table">
-                <table class="table is-bordered is-striped is-narrow">
-                  <tr>
-                    <th class="m-table-index">#</th>
-                    <th>Product</th>
-                    <th>Code</th>
-                    <th>Quantity</th>
-                    <th>Remove</th>
-                  </tr>
-                  <tr v-if="this.$store.state.cart.length < 1">
-                    <td colspan="8">You do not have any data yet.</td>
-                  </tr>
-                  <tr
-                    v-for="(cartItem, index) in this.$store.state.cart"
-                    :key="index"
-                  >
-                    <td>{{ index + 1 }}</td>
-                    <td>{{ cartItem.name }}</td>
-                    <td>{{ cartItem.code }}</td>
-                    <td>
-                      <div class="cart_list">
-                        <div class="qty-wrapper">
-                          <div class="number">
-                            <span class="minus" @click="decrement(cartItem)"
-                              >-</span
-                            >
-                            <input
-                              type="text"
-                              class="quantity"
-                              :id="cartItem.id"
-                              oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*?)\..*/g, '$1');"
-                              v-model.number="cartItem.qty"
-                              placeholder="Enter Qty"
-                              autocomplete="off"
-                            />
-                            <span class="plus" @click="increment(cartItem)"
-                              >+</span
-                            >
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                    <td class="text-right">
-                      <button
-                        type="button"
-                        v-on:click="removeItem(cartItem)"
-                        class="btn btn-danger btn-sm"
-                      >
-                        <i class="fa fa-times"></i>
-                      </button>
-                    </td>
-                  </tr>
-                </table>
-              </div>
-              <hr />
-              <button
-                class="btn"
-                @click="clearAll"
-                v-if="this.$store.state.cart.length > 0"
-              >
-                Clear Cart
-              </button>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="form-group">
-              <label><strong>Order Note</strong></label>
-              <textarea
-                name="order_note"
-                id="order_note"
-                rows="5"
-                placeholder="Order Note Here"
-                class="form-control"
-                v-model="order_note"
-                style="resize: none"
-              ></textarea>
-            </div>
-            <button
-              class="btn btn-sm btn-success"
-              @click="submit"
-              type="submit"
-            >
-              Submit Order
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+            <a
+              v-on:click="activetab = '3'"
+              v-bind:class="[activetab === '3' ? 'active' : '']"
+              >Cart
+              <b class="cart-badge">{{ this.$store.state.cartItemCount }}</b>
+            </a>
+            <a v-if="activetab !== '3'">
+              <div class="box m-form">
+                <div class="control is-grouped">
+                  <p class="control is-expanded">
+                    <input
+                      class="input"
+                      v-model="searchItem"
+                      v-on:keyup="searchInTheList(searchItem)"
+                      type="text"
+                      placeholder="Search ...."
+                    />
+                    <span class="help is-dark"
+                      ><strong>{{ filteredItems.length | numeral }}</strong> of
+                      {{ items.length | numeral }} product found</span
+                    >
+                  </p>
 
-  <!---Order list Modal-->
-  <div
-    class="modal fade show modal-overlay"
-    id="modal-lg"
-    aria-modal="true"
-    role="dialog"
-    style="padding-right: 17px; display: block"
-    v-if="showModal"
-  >
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <span class="modal-title"> Your Order list!</span>
-          <button
-            type="button"
-            class="close"
-            data-dismiss="modal"
-            aria-label="Close"
-            @click="showModal = false"
-          >
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="row">
-            <div class="col-lg-12">
-              <!-- end order detail table -->
+                  <p class="control">
+                    <a
+                      class="button is-info"
+                      v-on:click="clearSearchItem"
+                      v-bind:class="{ 'is-disabled': searchItem == '' }"
+                    >
+                      Clear
+                    </a>
+                  </p>
+                </div>
+              </div></a
+            >
+          </div>
+
+          <div class="content">
+            <div v-if="activetab === '1'" class="tabcontent">
               <div class="row">
-                <div class="col-md-12">
-                  <div class="card">
-                    <div class="card-header">My Others</div>
-                    <div class="card-body">
-                      <table class="table">
-                        <thead>
-                          <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Code</th>
-                            <th scope="col">Price</th>
-                            <th scope="col">Quantity</th>
-                            <th scope="col">Total Price</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr
-                            v-for="(data, index) in this.$store.state.cart"
-                            :key="index"
-                          >
-                            <th scope="row">{{ index + 1 }}</th>
-                            <td>{{ data.name }}</td>
-                            <td>{{ data.code }}</td>
-                            <td>{{ data.price }}</td>
-                            <td>{{ data.qty }}</td>
-                            <td>
-                              {{
-                                $helpers.formattedPrice(data.qty * data.price)
-                              }}/-
-                            </td>
-                          </tr>
-                          <tr class="card-header">
-                            <th><strong>Total Cost</strong></th>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <th colspan="2">
-                              <span id="total_cost">{{
-                                $helpers.formattedPrice(totalPrice)
-                              }}</span
-                              >/-
-                            </th>
-                          </tr>
-                        </tbody>
+                <div class="col-md-8 ibox-body">
+                  <div class="container tab-content" style="overflow-x: auto">
+                    <div class="m-table">
+                      <table class="table is-bordered is-striped is-narrow">
+                        <tr>
+                          <th class="m-table-index">#</th>
+                          <th>Product</th>
+                          <th>Code</th>
+                          <th>Quantity</th>
+                        </tr>
+                        <tr v-if="!filteredItems">
+                          <td colspan="8">You do not have any data yet.</td>
+                        </tr>
+                        <tr v-for="(item, index) in filteredItems" :key="index">
+                          <td>{{ index + 1 }}</td>
+                          <td>{{ item.name }}</td>
+                          <td>{{ item.code }}</td>
+                          <td>
+                            <div class="cart_list">
+                              <div class="qty-wrapper">
+                                <div class="number">
+                                  <span
+                                    class="minus is-disabled"
+                                    @click="decrement(item)"
+                                   
+                                    >-</span
+                                  >
+                                  <input
+                                    type="text"
+                                    class="quantity"
+                                    :id="item.id"
+                                    oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*?)\..*/g, '$1');"
+                                    v-model.number="item.qty"
+                                    placeholder="Enter Qty"
+                                    autocomplete="off"
+                                  />
+                                  <span class="plus" @click="increment(item)"
+                                    >+</span
+                                  >
+                                </div>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
                       </table>
                     </div>
                   </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label><strong>Order Note</strong></label>
+                    <textarea
+                      name="order_note"
+                      id="order_note"
+                      rows="5"
+                      placeholder="Order Note Here"
+                      class="form-control"
+                      v-model="order_note"
+                      style="resize: none"
+                    ></textarea>
+                  </div>
+                  <button
+                    class="btn btn-sm btn-success"
+                    @click="submit"
+                    type="submit"
+                  >
+                    Submit Order
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div v-if="activetab === '2'" class="tabcontent">
+              <div class="row">
+                <div class="col-md-8 ibox-body">
+                  <div class="container tab-content" style="overflow-x: auto">
+                    <div class="m-table">
+                      <table class="table is-bordered is-striped is-narrow">
+                        <tr>
+                          <th class="m-table-index">#</th>
+                          <th>Product</th>
+                          <th>Code</th>
+                          <th>Quantity</th>
+                        </tr>
+                        <tr v-if="!filteredItems">
+                          <td colspan="8">You do not have any data yet.</td>
+                        </tr>
+                        <tr v-for="(item, index) in filteredItems" :key="index">
+                          <td>{{ index + 1 }}</td>
+                          <td>{{ item.name }}</td>
+                          <td>{{ item.code }}</td>
+                          <td>
+                            <div class="cart_list">
+                              <div class="qty-wrapper">
+                                <div class="number">
+                                  <span class="minus" @click="decrement(item)"
+                                    >-</span
+                                  >
+                                  <input
+                                    type="text"
+                                    class="quantity"
+                                    :id="item.id"
+                                    oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*?)\..*/g, '$1');"
+                                    v-model.number="item.qty"
+                                    placeholder="Enter Qty"
+                                    autocomplete="off"
+                                  />
+                                  <span class="plus" @click="increment(item)"
+                                    >+</span
+                                  >
+                                </div>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label><strong>Order Note</strong></label>
+                    <textarea
+                      name="order_note"
+                      id="order_note"
+                      rows="5"
+                      placeholder="Order Note Here"
+                      class="form-control"
+                      v-model="order_note"
+                      style="resize: none"
+                    ></textarea>
+                  </div>
+                  <button
+                    class="btn btn-sm btn-success"
+                    @click="submit"
+                    type="submit"
+                  >
+                    Submit Order
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div v-if="activetab === '3'" class="tabcontent">
+              <div class="row">
+                <div class="col-md-8 ibox-body">
+                  <div class="container tab-content" style="overflow-x: auto">
+                    <div class="m-table">
+                      <table class="table is-bordered is-striped is-narrow">
+                        <tr>
+                          <th class="m-table-index">#</th>
+                          <th>Product</th>
+                          <th>Code</th>
+                          <th>Quantity</th>
+                          <th>Remove</th>
+                        </tr>
+                        <tr v-if="this.$store.state.cart.length < 1">
+                          <td colspan="8">You do not have any data yet.</td>
+                        </tr>
+                        <tr
+                          v-for="(cartItem, index) in this.$store.state.cart"
+                          :key="index"
+                        >
+                          <td>{{ index + 1 }}</td>
+                          <td>{{ cartItem.name }}</td>
+                          <td>{{ cartItem.code }}</td>
+                          <td>
+                            <div class="cart_list">
+                              <div class="qty-wrapper">
+                                <div class="number">
+                                  <span
+                                    class="minus"
+                                    @click="decrement(cartItem)"
+                                    >-</span
+                                  >
+                                  <input
+                                    type="text"
+                                    class="quantity"
+                                    :id="cartItem.id"
+                                    oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*?)\..*/g, '$1');"
+                                    v-model.number="cartItem.qty"
+                                    placeholder="Enter Qty"
+                                    autocomplete="off"
+                                  />
+                                  <span
+                                    class="plus"
+                                    @click="increment(cartItem)"
+                                    >+</span
+                                  >
+                                </div>
+                              </div>
+                            </div>
+                          </td>
+                          <td class="text-right">
+                            <button
+                              type="button"
+                              v-on:click="removeItem(cartItem)"
+                              class="btn btn-danger btn-sm"
+                            >
+                              <i class="fa fa-times"></i>
+                            </button>
+                          </td>
+                        </tr>
+                      </table>
+                    </div>
+                    <hr />
+                    <button
+                      class="btn"
+                      @click="clearAll"
+                      v-if="this.$store.state.cart.length > 0"
+                    >
+                      Clear Cart
+                    </button>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label><strong>Order Note</strong></label>
+                    <textarea
+                      name="order_note"
+                      id="order_note"
+                      rows="5"
+                      placeholder="Order Note Here"
+                      class="form-control"
+                      v-model="order_note"
+                      style="resize: none"
+                    ></textarea>
+                  </div>
+                  <button
+                    class="btn btn-sm btn-success"
+                    @click="submit"
+                    type="submit"
+                  >
+                    Submit Order
+                  </button>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="modal-footer justify-content-between">
-          <button
-            type="button"
-            class="btn btn-default"
-            @click="showModal = false"
-          >
-            Back
-          </button>
-          <button type="button" class="btn btn-default" @click="cancelOrder()">
-            Cancel
-          </button>
-          <button
-            type="button"
-            class="btn btn-primary"
-            @click="
-              submitData();
-              showModal = false;
-            "
-          >
-            Submit Order
-          </button>
+
+        <!---Order list Modal-->
+        <div
+          class="modal fade show modal-overlay"
+          id="modal-lg"
+          aria-modal="true"
+          role="dialog"
+          style="padding-right: 17px; display: block"
+          v-if="showModal"
+        >
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <span class="modal-title"> Your Order list!</span>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                  @click="showModal = false"
+                >
+                  <span aria-hidden="true">×</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <!-- end order detail table -->
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="card">
+                          <div class="card-header">My Others</div>
+                          <div class="card-body">
+                            <table class="table">
+                              <thead>
+                                <tr>
+                                  <th scope="col">#</th>
+                                  <th scope="col">Name</th>
+                                  <th scope="col">Code</th>
+                                  <th scope="col">Price</th>
+                                  <th scope="col">Quantity</th>
+                                  <th scope="col">Total Price</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr
+                                  v-for="(data, index) in this.$store.state
+                                    .cart"
+                                  :key="index"
+                                >
+                                  <th scope="row">{{ index + 1 }}</th>
+                                  <td>{{ data.name }}</td>
+                                  <td>{{ data.code }}</td>
+                                  <td>{{ data.price }}</td>
+                                  <td>{{ data.qty }}</td>
+                                  <td>
+                                    {{
+                                      $helpers.formattedPrice(
+                                        data.qty * data.price
+                                      )
+                                    }}/-
+                                  </td>
+                                </tr>
+                                <tr class="card-header">
+                                  <th><strong>Total Cost</strong></th>
+                                  <td>&nbsp;</td>
+                                  <td>&nbsp;</td>
+                                  <td>&nbsp;</td>
+                                  <td>&nbsp;</td>
+                                  <th colspan="2">
+                                    <span id="total_cost">{{
+                                      $helpers.formattedPrice(totalPrice)
+                                    }}</span
+                                    >/-
+                                  </th>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer justify-content-between">
+                <button
+                  type="button"
+                  class="btn btn-default"
+                  @click="showModal = false"
+                >
+                  Back
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-default"
+                  @click="cancelOrder()"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  @click="
+                    submitData();
+                    showModal = false;
+                  "
+                >
+                  Submit Order
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -540,41 +420,24 @@ export default {
       searchItem: "",
       items: [],
       filteredItems: [],
-      paginatedItems: [],
-      selectedItems: [],
       order_note: "",
-      pagination: {
-        range: 5,
-        currentPage: 1,
-        itemPerPage: 8,
-        items: [],
-        filteredItems: [],
-      },
     };
   },
   created() {
     this.items = this.myproducts;
     this.filteredItems = this.items;
-    this.buildPagination();
-    this.selectPage(1);
   },
   watch: {
     activetab: function (value) {
       if (value === "1") {
         this.items = this.myproducts;
-        this.buildPagination();
-        this.selectPage(1);
         this.clearSearchItem();
       }
       if (value === "2") {
         this.items = this.products;
-        this.buildPagination();
-        this.selectPage(1);
         this.clearSearchItem();
       }
       if (value === "3") {
-        this.buildPagination();
-        this.selectPage(1);
         this.clearSearchItem();
       }
     },
@@ -621,56 +484,6 @@ export default {
       }
       this.filteredItems.forEach(function (v, k) {
         v.key = k + 1;
-      });
-      this.buildPagination();
-      if (_.isUndefined(currentPage)) {
-        this.selectPage(1);
-      } else {
-        this.selectPage(currentPage);
-      }
-    },
-    buildPagination() {
-      let numberOfPage = Math.ceil(
-        this.filteredItems.length / this.pagination.itemPerPage
-      );
-      this.pagination.items = [];
-      for (var i = 0; i < numberOfPage; i++) {
-        this.pagination.items.push(i + 1);
-      }
-    },
-    selectPage(item) {
-      this.pagination.currentPage = item;
-      let start = 0;
-      let end = 0;
-      if (this.pagination.currentPage < this.pagination.range - 2) {
-        start = 1;
-        end = start + this.pagination.range - 1;
-      } else if (
-        this.pagination.currentPage <= this.pagination.items.length &&
-        this.pagination.currentPage >
-          this.pagination.items.length - this.pagination.range + 2
-      ) {
-        start = this.pagination.items.length - this.pagination.range + 1;
-        end = this.pagination.items.length;
-      } else {
-        start = this.pagination.currentPage - 2;
-        end = this.pagination.currentPage + 2;
-      }
-      if (start < 1) {
-        start = 1;
-      }
-      if (end > this.pagination.items.length) {
-        end = this.pagination.items.length;
-      }
-      this.pagination.filteredItems = [];
-      for (var i = start; i <= end; i++) {
-        this.pagination.filteredItems.push(i);
-      }
-      this.paginatedItems = this.filteredItems.filter((v, k) => {
-        return (
-          Math.ceil((k + 1) / this.pagination.itemPerPage) ==
-          this.pagination.currentPage
-        );
       });
     },
     increment(item) {
@@ -761,3 +574,16 @@ export default {
   },
 };
 </script>
+<style>
+.sticky {
+  position: fixed;
+  top: 58px;
+  width: 80%;
+  transition: 0.4s;
+  z-index: 8;
+}
+.tab-content {
+  overflow-y: scroll;
+  max-height: 700px;
+}
+</style>
