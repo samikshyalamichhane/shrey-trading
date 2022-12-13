@@ -232,7 +232,7 @@
                                     class="minus"
                                     @click="decrement(cartItem)"
                                     v-bind:class="{
-                                      'is-disabled': item.qty == 0,
+                                      'is-disabled': cartItem.qty == 0,
                                     }">-</span
                                   >
                                   <input
