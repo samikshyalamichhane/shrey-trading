@@ -64,7 +64,7 @@
                           <th>Code</th>
                           <th>Quantity</th>
                         </tr>
-                        <tr v-if="!filteredItems">
+                        <tr v-if="filteredItems.length <= 0">
                           <td colspan="8">You do not have any data yet.</td>
                         </tr>
                         <tr v-for="(item, index) in filteredItems" :key="index">
@@ -139,7 +139,7 @@
                           <th>Code</th>
                           <th>Quantity</th>
                         </tr>
-                        <tr v-if="!filteredItems">
+                        <tr v-if="filteredItems <= 0">
                           <td colspan="8">You do not have any data yet.</td>
                         </tr>
                         <tr v-for="(item, index) in filteredItems" :key="index">
