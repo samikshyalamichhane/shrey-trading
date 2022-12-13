@@ -76,9 +76,11 @@
                               <div class="qty-wrapper">
                                 <div class="number">
                                   <span
-                                    class="minus is-disabled"
+                                    class="minus"
                                     @click="decrement(item)"
-                                   
+                                    v-bind:class="{
+                                      'is-disabled': item.qty == 0,
+                                    }"
                                     >-</span
                                   >
                                   <input
@@ -148,8 +150,12 @@
                             <div class="cart_list">
                               <div class="qty-wrapper">
                                 <div class="number">
-                                  <span class="minus" @click="decrement(item)"
-                                    >-</span
+                                  <span
+                                    class="minus is-disabled"
+                                    @click="decrement(item)"
+                                    v-bind:class="{
+                                      'is-disabled': item.qty == 0,
+                                    }">-</span
                                   >
                                   <input
                                     type="text"
@@ -225,7 +231,9 @@
                                   <span
                                     class="minus"
                                     @click="decrement(cartItem)"
-                                    >-</span
+                                    v-bind:class="{
+                                      'is-disabled': item.qty == 0,
+                                    }">-</span
                                   >
                                   <input
                                     type="text"
@@ -575,6 +583,14 @@ export default {
 };
 </script>
 <style>
+.minus.is-disabled,
+.minus[disabled] {
+  background-color: #f5f5f5;
+  border-color: #dbdbdb;
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.5;
+}
 .sticky {
   position: fixed;
   top: 58px;
