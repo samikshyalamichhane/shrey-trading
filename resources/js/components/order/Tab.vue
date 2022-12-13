@@ -151,7 +151,7 @@
                               <div class="qty-wrapper">
                                 <div class="number">
                                   <span
-                                    class="minus is-disabled"
+                                    class="minus"
                                     @click="decrement(item)"
                                     v-bind:class="{
                                       'is-disabled': item.qty == 0,
